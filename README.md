@@ -1,0 +1,1 @@
+# sintomed_app
