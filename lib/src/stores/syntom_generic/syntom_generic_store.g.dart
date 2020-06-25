@@ -61,12 +61,13 @@ mixin _$SyntomGenericStore on _SyntomGenericStoreBase, Store {
     });
   }
 
-  final _$getSyntomsTypesAsyncAction =
-      AsyncAction('_SyntomGenericStoreBase.getSyntomsTypes');
+  final _$getSyntomsGenericsAsyncAction =
+      AsyncAction('_SyntomGenericStoreBase.getSyntomsGenerics');
 
   @override
-  Future<dynamic> getSyntomsTypes() {
-    return _$getSyntomsTypesAsyncAction.run(() => super.getSyntomsTypes());
+  Future<dynamic> getSyntomsGenerics() {
+    return _$getSyntomsGenericsAsyncAction
+        .run(() => super.getSyntomsGenerics());
   }
 
   @override

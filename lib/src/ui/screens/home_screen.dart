@@ -27,8 +27,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (widget.store.error) {
           return Center(
-            child: Text(
-              'Ocorreu um erro, tente novamente mais tarde',
+            child: Column(
+              children: <Widget>[
+                Image(
+                  image: AssetImage('images/medicine.png'),
+                ),
+                Text(
+                  'Ocorreu um erro!',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Por favor, tente novamente mais tarde.',
+                ),
+                RaisedButton(
+                  child: Text('Tentar novamente'),
+                ),
+              ],
             ),
           );
         }

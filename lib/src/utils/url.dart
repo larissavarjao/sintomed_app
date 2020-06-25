@@ -5,6 +5,7 @@ class Url {
   // Authentication URLs
   static const authUrl = '$baseUrl/auth';
   static const usersUrl = '$baseUrl/users';
+  static const syntomsUrl = '$baseUrl/syntoms';
   static const syntomsTypesUrl = '$baseUrl/syntomstypes';
   static const syntomsGenericsUrl = '$baseUrl/syntomsgenerics';
 }

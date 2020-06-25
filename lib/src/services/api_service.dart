@@ -21,4 +21,9 @@ class APIService {
     Response response = await _dio.get(Url.syntomsGenericsUrl);
     return response;
   }
+
+  Future<Response> getSyntoms() async {
+    Response response = await _dio.get(Url.syntomsUrl);
+    return response;
+  }
 }

@@ -9,14 +9,15 @@ class SyntomGeneric {
   String _updatedAt;
   String _deletedAt;
 
-  SyntomGeneric(
-      {String id,
-      String name,
-      String description,
-      String classification,
-      String createdAt,
-      String updatedAt,
-      String deletedAt}) {
+  SyntomGeneric({
+    String id,
+    String name,
+    String description,
+    String classification,
+    String createdAt,
+    String updatedAt,
+    String deletedAt,
+  }) {
     this._id = id;
     this._name = name;
     this._description = description;

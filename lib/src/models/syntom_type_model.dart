@@ -7,12 +7,13 @@ class SyntomType {
   String _updatedAt;
   String _deletedAt;
 
-  SyntomType(
-      {String id,
-      String name,
-      String createdAt,
-      String updatedAt,
-      String deletedAt}) {
+  SyntomType({
+    String id,
+    String name,
+    String createdAt,
+    String updatedAt,
+    String deletedAt,
+  }) {
     this._id = id;
     this._name = name;
     this._createdAt = createdAt;
