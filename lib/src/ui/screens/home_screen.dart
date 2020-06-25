@@ -17,10 +17,18 @@ class _HomeScreenState extends State<HomeScreen> {
     widget.store.getSyntomsTypes();
   }
 
+  dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Observer(builder: (_) {
+      body: Observer(builder: (context) {
+        print('error ${widget.store.error}');
+        print('success ${widget.store.success}');
+        print('loading ${widget.store.loading}');
+        print('list ${widget.store.syntomsTypes}');
         if (widget.store.loading) {
           return LoadingWidget();
         }
@@ -31,6 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Image(
                   image: AssetImage('images/medicine.png'),
+                ),
+                SizedBox(
+                  height: 48.0,
                 ),
                 Text(
                   'Ocorreu um erro!',
@@ -50,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
 
-        if (widget.store.syntomsTypes.isNotEmpty) {
+        if (widget.store.success &&
+            widget.store.syntomsTypes != null &&
+            widget.store.syntomsTypes.isNotEmpty) {
           return ListView.builder(
             itemCount: widget.store.syntomsTypes.length,
             itemBuilder: (context, index) {
@@ -59,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
 
-        if (widget.store.syntomsTypes.isEmpty) {
+        if (widget.store.success && widget.store.syntomsTypes.isEmpty ||
+            widget.store.syntomsTypes == null) {
           return Center(
             child: Text(
               'Sem nada ainda',

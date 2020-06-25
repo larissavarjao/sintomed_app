@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/ui/screens/splash_screen.dart';
+import 'package:sintomed_app/src/utils/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,8 +18,11 @@ class MyApp extends StatelessWidget {
           title: 'Sintomed',
           routes: Routes.routes,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryColor: kPrimaryColor.shade900,
+            fontFamily: 'Montserrat',
+            primarySwatch: kPrimaryColor,
+            backgroundColor: Colors.white,
+            scaffoldBackgroundColor: Colors.white,
           ),
           home: SplashScreen(),
         );
