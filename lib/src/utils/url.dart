@@ -6,4 +6,5 @@ class Url {
   static const authUrl = '$baseUrl/auth';
   static const usersUrl = '$baseUrl/users';
   static const syntomsTypesUrl = '$baseUrl/syntomstypes';
+  static const syntomsGenericsUrl = '$baseUrl/syntomsgenerics';
 }

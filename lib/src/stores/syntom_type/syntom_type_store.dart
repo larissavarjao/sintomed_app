@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:sintomed_app/src/models/syntom_model.dart';
+import 'package:sintomed_app/src/models/syntom_type_model.dart';
 import 'package:sintomed_app/src/repositories/syntom_type_repository.dart';
 
 part 'syntom_type_store.g.dart';
