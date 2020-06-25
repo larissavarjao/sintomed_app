@@ -5,8 +5,10 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Welcome'),
+    return Scaffold(
+      body: Center(
+        child: Text('Welcome'),
+      ),
     );
   }
 }
