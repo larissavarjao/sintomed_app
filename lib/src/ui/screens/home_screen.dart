@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/src/stores/syntom/syntom_store.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
+import 'package:sintomed_app/src/utils/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,22 +41,39 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_syntomStore.error) {
           return Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image(
                   image: AssetImage('images/medicine.png'),
                 ),
                 SizedBox(
-                  height: 48.0,
+                  height: 24.0,
                 ),
                 Text(
                   'Ocorreu um erro!',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    color: kBlackColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24.0,
                   ),
                 ),
-                Text(
-                  'Por favor, tente novamente mais tarde!',
+                SizedBox(
+                  height: 12.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 42.0),
+                  child: Text(
+                    'Parece que ocorreu um erro. Por favor, tente novamente mais tarde!',
+                    style: TextStyle(
+                      color: kGrayColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 24.0,
                 ),
                 RaisedButton(
                   child: Text('Tentar novamente'),

@@ -19,3 +19,5 @@ const kErrorColor = Color(0xFFC81D25);
 const kSuccessColor = Color(0xFF38A700);
 const kWarningColor = Color(0xFFFFFD82);
 const kSecondaryColor = Color(0xFF340068);
+const kBlackColor = Color(0xFF252334);
+const kGrayColor = Color(0xFFB3B2BA);
