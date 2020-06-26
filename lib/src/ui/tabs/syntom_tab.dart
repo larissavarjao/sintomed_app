@@ -6,12 +6,12 @@ import 'package:sintomed_app/src/ui/widgets/empty_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class SymptomTab extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _SyntomTabState createState() => _SyntomTabState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SyntomTabState extends State<SymptomTab> {
   SyntomStore _syntomStore;
 
   @override

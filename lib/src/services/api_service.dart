@@ -4,7 +4,7 @@ import 'package:sintomed_app/src/utils/url.dart';
 
 class APIService {
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIwZjM0ZGIwLTIzMzItNDkxYS04ODdhLWUyZGE3YTcxOGViMiIsImlhdCI6MTU5MzA0MjMwMn0.KDmQxGtXX5VvWDCpxORFY3zCFKINsOwwfV-2F3vhBIs";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDdmNGQ2LTE2NmMtNDM5MC04N2IwLTc5Yzk0ZmY4MGNjYyIsImlhdCI6MTU5MzA5MDI3Nn0.HvPVo6znP8HWipZbpxjD6x2XDGzfr5kj4RAAJNwP_Zs";
   static BaseOptions options =
       new BaseOptions(connectTimeout: 5000, receiveTimeout: 5000, headers: {
     'authorization': 'Bearer $token',
