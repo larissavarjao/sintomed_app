@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/src/stores/syntom/syntom_store.dart';
+import 'package:sintomed_app/src/ui/widgets/empty_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
 
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Observer(builder: (context) {
+      body: Observer(builder: (_) {
         if (_syntomStore.loading) {
           return LoadingWidget();
         }
@@ -64,11 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (_syntomStore.success && _syntomStore.syntoms.isEmpty ||
             _syntomStore.syntoms == null) {
-          return Center(
-            child: Text(
-              'Sem nada ainda',
-            ),
-          );
+          return EmptyWidget(() {
+            print('add button');
+          });
         }
       }),
     );
