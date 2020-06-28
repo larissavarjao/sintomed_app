@@ -26,4 +26,24 @@ class APIService {
     Response response = await _dio.get(Url.syntomsUrl);
     return response;
   }
+
+  Future<Response> registerUser(String email, String password, String firstName,
+      String lastName, String pacientName) async {
+    Response response = await _dio.post(Url.usersUrl, data: {
+      'firstName': firstName,
+      'lastName': lastName,
+      'pacientName': pacientName,
+      'email': email,
+      'password': password,
+    });
+    return response;
+  }
+
+  Future<Response> loginUser(String email, String password) async {
+    Response response = await _dio.post(Url.authUrl, data: {
+      'email': email,
+      'password': password,
+    });
+    return response;
+  }
 }
