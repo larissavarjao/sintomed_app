@@ -15,6 +15,7 @@ dependencies:
   # UI
   flutter_spinkit: ^4.1.2+1
   material_design_icons_flutter: ^4.0.5345
+  animated_text_kit: ^2.1.0
 
   # Online
   dio: ^3.0.9
