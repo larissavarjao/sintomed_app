@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
-import 'package:sintomed_app/src/stores/user/user_store.dart';
+import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/ui/widgets/dialog_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
@@ -15,7 +15,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  UserStore _userStore;
+  AuthStore _authStore;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _userStore = Provider.of<UserStore>(context);
+    _authStore = Provider.of<AuthStore>(context);
   }
 
   Future<void> _showErrorDialog(String errorMessage) async {
@@ -47,11 +47,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: SafeArea(child: Observer(
         builder: (_) {
-          if (_userStore.loading) {
+          if (_authStore.loading) {
             return LoadingWidget();
           }
 
-          if (_userStore.error) {
+          if (_authStore.error) {
             _showErrorDialog('Ocorreu um erro ao realizar o cadastro.');
           }
 
@@ -75,12 +75,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                             return null;
                           },
-                          onChanged: _userStore.onChangeFirstName,
+                          onChanged: _authStore.onChangeFirstName,
                         ),
                         TextFormField(
                           cursorColor: kPrimaryColor.shade900,
                           decoration: InputDecoration(labelText: 'Sobrenome'),
-                          onChanged: _userStore.onChangeLastName,
+                          onChanged: _authStore.onChangeLastName,
                         ),
                         TextFormField(
                           cursorColor: kPrimaryColor.shade900,
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                             return null;
                           },
-                          onChanged: _userStore.onChangePacienttName,
+                          onChanged: _authStore.onChangePacienttName,
                         ),
                         TextFormField(
                           cursorColor: kPrimaryColor.shade900,
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                           keyboardType: TextInputType.emailAddress,
-                          onChanged: _userStore.onChangeEmail,
+                          onChanged: _authStore.onChangeEmail,
                         ),
                         TextFormField(
                           cursorColor: kPrimaryColor.shade900,
@@ -116,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                           obscureText: true,
-                          onChanged: _userStore.onChangePassword,
+                          onChanged: _authStore.onChangePassword,
                         ),
                         TextFormField(
                           cursorColor: kPrimaryColor.shade900,
@@ -124,13 +124,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               InputDecoration(labelText: 'Confirme sua senha'),
                           validator: (value) {
                             if (value.isEmpty ||
-                                !_userStore.isPasswordsEquals) {
+                                !_authStore.isPasswordsEquals) {
                               return 'Senhas não batem';
                             }
                             return null;
                           },
                           obscureText: true,
-                          onChanged: _userStore.onChangeConfirmPassword,
+                          onChanged: _authStore.onChangeConfirmPassword,
                         ),
                       ],
                     ),
@@ -139,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         print('validado');
-                        bool isUserRegistered = await _userStore.registerUser();
+                        bool isUserRegistered = await _authStore.registerUser();
                         print('isUserRegistered $isUserRegistered');
 
                         if (isUserRegistered) {
