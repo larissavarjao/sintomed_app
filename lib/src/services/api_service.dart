@@ -1,16 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sintomed_app/src/services/shared_pref_service.dart';
 import 'package:sintomed_app/src/utils/url.dart';
-// import 'package:sintomedapp/services/shared_preferences_service.dart';
 
 class APIService {
-  static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDdmNGQ2LTE2NmMtNDM5MC04N2IwLTc5Yzk0ZmY4MGNjYyIsImlhdCI6MTU5MzA5MDI3Nn0.HvPVo6znP8HWipZbpxjD6x2XDGzfr5kj4RAAJNwP_Zs";
+  String token;
   static BaseOptions options =
-      new BaseOptions(connectTimeout: 5000, receiveTimeout: 5000, headers: {
-    'authorization': 'Bearer $token',
-  });
-
-  final Dio _dio = Dio(options);
+      new BaseOptions(connectTimeout: 5000, receiveTimeout: 5000);
+  Dio _dio = Dio(options);
 
   Future<Response> getSyntomsTypes() async {
     Response response = await _dio.get(Url.syntomsTypesUrl);
@@ -23,7 +20,20 @@ class APIService {
   }
 
   Future<Response> getSyntoms() async {
-    Response response = await _dio.get(Url.syntomsUrl);
+    SharedPrefService prefs =
+        SharedPrefService(SharedPreferences.getInstance());
+    String token = await prefs.authToken;
+    print('sintomas $token');
+    Response response = await _dio.get(
+      Url.syntomsUrl,
+      options: RequestOptions(
+        connectTimeout: 5000,
+        receiveTimeout: 5000,
+        headers: {
+          'authorization': 'Bearer $token',
+        },
+      ),
+    );
     return response;
   }
 
