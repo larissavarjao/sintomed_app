@@ -1,12 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:sintomed_app/src/models/user_model.dart';
-import 'package:sintomed_app/src/models/user_token_model.dart';
 import 'package:sintomed_app/src/services/api_service.dart';
 
 class UserRepository {
-  User user;
-  String token;
-
   Future<Response> registerUser(String email, String password, String firstName,
       String lastName, String pacientName) async {
     try {
@@ -19,12 +14,11 @@ class UserRepository {
     }
   }
 
-  Future<UserToken> loginUser(String email, String password) async {
+  Future<Map<String, dynamic>> loginUser(String email, String password) async {
     try {
       final Response response = await APIService().loginUser(email, password);
       Map<String, dynamic> data = response.data;
-      UserToken newUser = UserToken.fromJson(data);
-      return newUser;
+      return data;
     } catch (e) {
       print(e);
       throw (e);
