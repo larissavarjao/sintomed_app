@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
@@ -33,9 +34,7 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(
               height: 48.0,
             ),
-            Image(
-              image: AssetImage('images/medicine.png'),
-            ),
+            SvgPicture.asset('images/medicine.svg'),
             SizedBox(
               height: 48.0,
             ),

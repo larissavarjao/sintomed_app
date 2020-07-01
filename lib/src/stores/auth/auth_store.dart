@@ -69,12 +69,9 @@ abstract class _AuthStoreBase with Store {
     bool isLogged = false;
     bool isLoggedOnStore = this.token != null;
     bool isLoggedOnSharedPref = await _prefService.isLoggedIn;
-    print('isLoggedOnStore $isLoggedOnStore');
-    print('isLoggedOnSharedPref $isLoggedOnSharedPref');
 
     if (!isLoggedOnStore && isLoggedOnSharedPref) {
       String token = await _prefService.authToken;
-      print('prefToken $token');
       this.token = token;
       isLogged = true;
     } else if (isLoggedOnStore && !isLoggedOnSharedPref) {
@@ -163,7 +160,5 @@ abstract class _AuthStoreBase with Store {
     this.confirmPassword = null;
 
     await _prefService.removeAuthToken();
-
-    print('isLoggedIn ${this.isLoggedIn}');
   }
 }

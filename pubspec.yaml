@@ -17,6 +17,7 @@ dependencies:
   material_design_icons_flutter: ^4.0.5345
   animated_text_kit: ^2.1.0
   flare_flutter: ^2.0.4
+  flutter_svg: 0.17.4
 
   # Online
   dio: ^3.0.9

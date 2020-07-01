@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -10,8 +11,10 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: Text('Home'),
+        child: Expanded(
+          child: Center(
+            child: LoadingWidget(),
+          ),
         ),
       ),
     );
