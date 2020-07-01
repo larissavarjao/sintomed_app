@@ -13,7 +13,14 @@ class ErroWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SvgPicture.asset('images/404.svg'),
+        Container(
+          height: 200.0,
+          child: SvgPicture.asset(
+            'images/404.svg',
+            alignment: Alignment.center,
+            fit: BoxFit.contain,
+          ),
+        ),
         SizedBox(
           height: 24.0,
         ),

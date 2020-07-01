@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: kPrimaryColor.shade900,
           fontFamily: 'Montserrat',
-          primarySwatch: kPrimaryColor,
           backgroundColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
         ),

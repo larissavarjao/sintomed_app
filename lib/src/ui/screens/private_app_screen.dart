@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sintomed_app/src/ui/tabs/index.dart';
 import 'package:sintomed_app/src/ui/widgets/appbar_icon_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:sintomed_app/src/utils/colors.dart';
 
 class PrivateAppScreen extends StatefulWidget {
-  static const String id = 'home_screen';
-
   @override
   _PrivateAppScreenState createState() => _PrivateAppScreenState();
 }
@@ -33,10 +32,12 @@ class _PrivateAppScreenState extends State<PrivateAppScreen> {
         child: Icon(Icons.add),
         tooltip: 'Criar sintomas',
         onPressed: () {},
+        backgroundColor: kSecondaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        elevation: 8.0,
+        elevation: 6.0,
+        notchMargin: 6.0,
         shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
