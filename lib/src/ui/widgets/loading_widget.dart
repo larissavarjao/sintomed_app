@@ -1,13 +1,20 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sintomed_app/src/utils/colors.dart';
 
 class LoadingWidget extends StatelessWidget {
+  final String _heartBeat = 'heartbeat';
+
   @override
   Widget build(BuildContext context) {
-    return SpinKitDoubleBounce(
-      color: kPrimaryColor,
-      size: 50.0,
+    return Container(
+      width: 120.0,
+      height: 120.0,
+      child: FlareActor(
+        "assets/heart-beat.flr",
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        animation: _heartBeat,
+      ),
     );
   }
 }
