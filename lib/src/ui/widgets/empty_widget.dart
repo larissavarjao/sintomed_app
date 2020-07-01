@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
@@ -12,8 +13,9 @@ class EmptyWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image(
-          image: AssetImage('images/add_list.png'),
+        Container(
+          child: SvgPicture.asset('images/list.svg'),
+          height: 250.0,
         ),
         SizedBox(
           height: 24.0,

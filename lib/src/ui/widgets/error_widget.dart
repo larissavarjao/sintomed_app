@@ -14,7 +14,7 @@ class ErroWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-          height: 200.0,
+          height: 250.0,
           child: SvgPicture.asset(
             'images/404.svg',
             alignment: Alignment.center,

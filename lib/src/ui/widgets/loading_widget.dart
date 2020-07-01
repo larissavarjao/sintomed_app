@@ -6,15 +6,23 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 120.0,
-      height: 120.0,
-      child: FlareActor(
-        "assets/heart-beat.flr",
-        alignment: Alignment.center,
-        fit: BoxFit.contain,
-        animation: _heartBeat,
-      ),
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: Center(
+            child: Container(
+              width: 120.0,
+              height: 120.0,
+              child: FlareActor(
+                "assets/heart-beat.flr",
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: _heartBeat,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
