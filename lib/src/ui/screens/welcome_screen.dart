@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
-import 'package:sintomed_app/src/utils/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -17,24 +15,13 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TypewriterAnimatedTextKit(
-              speed: Duration(milliseconds: 100),
-              text: [
-                'A gente te ajuda a organizar tudo sobre seu histórico médico',
-              ],
-              textAlign: TextAlign.center,
-              textStyle: TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w500,
-                color: kPrimaryColor.shade900,
-                letterSpacing: 1.1,
-              ),
-              totalRepeatCount: 1,
-            ),
             SizedBox(
               height: 48.0,
             ),
-            SvgPicture.asset('images/medicine.svg'),
+            Container(
+              child: SvgPicture.asset('images/medicine.svg'),
+              height: 200.0,
+            ),
             SizedBox(
               height: 48.0,
             ),

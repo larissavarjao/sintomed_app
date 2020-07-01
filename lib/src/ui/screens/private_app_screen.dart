@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sintomed_app/src/ui/tabs/index.dart';
 import 'package:sintomed_app/src/ui/widgets/appbar_icon_widget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class PrivateAppScreen extends StatefulWidget {
@@ -46,13 +46,13 @@ class _PrivateAppScreenState extends State<PrivateAppScreen> {
             AppBarIconWidget(
               onItemTapped: () => _onItemTapped(0),
               selectedIndex: _selectedIndex,
-              icon: MdiIcons.home,
+              icon: LineAwesomeIcons.home,
               index: 0,
             ),
             AppBarIconWidget(
               onItemTapped: () => _onItemTapped(1),
               selectedIndex: _selectedIndex,
-              icon: MdiIcons.heartPulse,
+              icon: LineAwesomeIcons.medical_file,
               index: 1,
             ),
             Padding(
@@ -64,13 +64,13 @@ class _PrivateAppScreenState extends State<PrivateAppScreen> {
             AppBarIconWidget(
               onItemTapped: () => _onItemTapped(2),
               selectedIndex: _selectedIndex,
-              icon: MdiIcons.pill,
+              icon: LineAwesomeIcons.capsules,
               index: 2,
             ),
             AppBarIconWidget(
               onItemTapped: () => _onItemTapped(3),
               selectedIndex: _selectedIndex,
-              icon: MdiIcons.account,
+              icon: LineAwesomeIcons.user,
               index: 3,
             ),
           ],

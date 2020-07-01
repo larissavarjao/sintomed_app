@@ -11,11 +11,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Expanded(
-          child: Center(
-            child: LoadingWidget(),
-          ),
-        ),
+        child: LoadingWidget(),
       ),
     );
   }
