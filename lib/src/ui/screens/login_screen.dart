@@ -51,15 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Center(
-                      child: Hero(
-                        tag: 'logo',
-                        child: Image.asset(
-                          'images/logo-text.png',
-                          height: 50.0,
-                        ),
-                      ),
-                    ),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
