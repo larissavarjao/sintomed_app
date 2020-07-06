@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/utils/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -21,6 +22,29 @@ class WelcomeScreen extends StatelessWidget {
             Container(
               child: SvgPicture.asset('images/medicine.svg'),
               height: 200.0,
+            ),
+            SizedBox(
+              height: 48.0,
+            ),
+            Text(
+              'Não se esqueça nada',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            Text(
+              'Deixe que lembramos de tudo para você, em qualquer lugar, na palma da sua mão',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400,
+                color: kGrayColor,
+              ),
             ),
             SizedBox(
               height: 48.0,
