@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
-import 'package:sintomed_app/src/stores/syntom/syntom_store.dart';
+import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/ui/screens/splash_screen.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
@@ -12,14 +12,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final SyntomStore _syntomStore = SyntomStore();
+  final SymptomStore _symptomStore = SymptomStore();
   final AuthStore _authStore = AuthStore();
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<SyntomStore>.value(value: _syntomStore),
+        Provider<SymptomStore>.value(value: _symptomStore),
         Provider<AuthStore>.value(value: _authStore),
       ],
       child: MaterialApp(

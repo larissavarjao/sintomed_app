@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SyntomGeneric {
+class SymptomGeneric {
   String _id;
   String _name;
   String _description;
@@ -9,7 +9,7 @@ class SyntomGeneric {
   String _updatedAt;
   String _deletedAt;
 
-  SyntomGeneric({
+  SymptomGeneric({
     String id,
     String name,
     String description,
@@ -55,7 +55,7 @@ class SyntomGeneric {
   Null get deletedAt => _deletedAt;
   set deletedAt(Null deletedAt) => _deletedAt = deletedAt;
 
-  SyntomGeneric.fromJson(Map<String, dynamic> json) {
+  SymptomGeneric.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
     _description = json['description'];

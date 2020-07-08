@@ -1,4 +1,4 @@
-export './syntom_generic_repository.dart';
-export './syntom_repository.dart';
-export './syntom_type_repository.dart';
+export './symptom_generic_repository.dart';
+export './symptom_repository.dart';
+export './symptom_type_repository.dart';
 export './user_repository.dart';

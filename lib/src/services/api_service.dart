@@ -9,23 +9,23 @@ class APIService {
       new BaseOptions(connectTimeout: 5000, receiveTimeout: 5000);
   Dio _dio = Dio(options);
 
-  Future<Response> getSyntomsTypes() async {
-    Response response = await _dio.get(Url.syntomsTypesUrl);
+  Future<Response> getSymptomsTypes() async {
+    Response response = await _dio.get(Url.symptomsTypesUrl);
     return response;
   }
 
-  Future<Response> getSyntomsGenerics() async {
-    Response response = await _dio.get(Url.syntomsGenericsUrl);
+  Future<Response> getSymptomsGenerics() async {
+    Response response = await _dio.get(Url.symptomsGenericsUrl);
     return response;
   }
 
-  Future<Response> getSyntoms() async {
+  Future<Response> getSymptoms() async {
     SharedPrefService prefs =
         SharedPrefService(SharedPreferences.getInstance());
     String token = await prefs.authToken;
     print('sintomas $token');
     Response response = await _dio.get(
-      Url.syntomsUrl,
+      Url.symptomsUrl,
       options: RequestOptions(
         connectTimeout: 5000,
         receiveTimeout: 5000,

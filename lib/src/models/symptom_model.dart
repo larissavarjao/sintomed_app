@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Syntom {
+class Symptom {
   String _id;
   DateTime _happenedAt;
   int _durationSeconds;
@@ -8,15 +8,15 @@ class Syntom {
   String _userId;
   DateTime _createdAt;
   DateTime _updatedAt;
-  dynamic _syntomGenericId;
-  dynamic _syntomUserId;
+  dynamic _symptomGenericId;
+  dynamic _symptomUserId;
   String _name;
   String _description;
   String _classification;
   String _typeId;
   String _typeName;
 
-  Syntom({
+  Symptom({
     String id,
     DateTime happenedAt,
     int durationSeconds,
@@ -24,8 +24,8 @@ class Syntom {
     String userId,
     DateTime createdAt,
     DateTime updatedAt,
-    dynamic syntomGenericId,
-    dynamic syntomUserId,
+    dynamic symptomGenericId,
+    dynamic symptomUserId,
     String name,
     String description,
     String classification,
@@ -39,8 +39,8 @@ class Syntom {
     this._userId = userId;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
-    this._syntomGenericId = syntomGenericId;
-    this._syntomUserId = syntomUserId;
+    this._symptomGenericId = symptomGenericId;
+    this._symptomUserId = symptomUserId;
     this._name = name;
     this._description = description;
     this._classification = classification;
@@ -78,13 +78,13 @@ class Syntom {
   set updatedAt(DateTime updatedAt) => _updatedAt = updatedAt;
 
   @protected
-  dynamic get syntomGenericId => _syntomGenericId;
-  set syntomGenericId(dynamic syntomGenericId) =>
-      _syntomGenericId = syntomGenericId;
+  dynamic get symptomGenericId => _symptomGenericId;
+  set symptomGenericId(dynamic symptomGenericId) =>
+      _symptomGenericId = symptomGenericId;
 
   @protected
-  dynamic get syntomUserId => _syntomUserId;
-  set syntomUserId(dynamic syntomUserId) => _syntomUserId = syntomUserId;
+  dynamic get symptomUserId => _symptomUserId;
+  set symptomUserId(dynamic symptomUserId) => _symptomUserId = symptomUserId;
 
   @protected
   String get name => _name;
@@ -106,7 +106,7 @@ class Syntom {
   String get typeName => _typeName;
   set typeName(String typeName) => _typeName = typeName;
 
-  Syntom.fromJson(Map<String, dynamic> json) {
+  Symptom.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _happenedAt = DateTime.parse(json['happenedAt']);
     _durationSeconds = json['durationSeconds'];
@@ -114,8 +114,8 @@ class Syntom {
     _userId = json['userId'];
     _createdAt = DateTime.parse(json['createdAt']);
     _updatedAt = DateTime.parse(json['updatedAt']);
-    _syntomGenericId = json['syntom_generic_id'];
-    _syntomUserId = json['syntom_user_id'];
+    _symptomGenericId = json['symptom_generic_id'];
+    _symptomUserId = json['symptom_user_id'];
     _name = json['name'];
     _description = json['description'];
     _classification = json['classification'];
@@ -132,8 +132,8 @@ class Syntom {
     data['userId'] = this._userId;
     data['createdAt'] = this._createdAt;
     data['updatedAt'] = this._updatedAt;
-    data['syntom_generic_id'] = this._syntomGenericId;
-    data['syntom_user_id'] = this._syntomUserId;
+    data['symptom_generic_id'] = this._symptomGenericId;
+    data['symptom_user_id'] = this._symptomUserId;
     data['name'] = this._name;
     data['description'] = this._description;
     data['classification'] = this._classification;

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:sintomed_app/src/stores/syntom/syntom_store.dart';
+import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
 import 'package:sintomed_app/src/ui/widgets/empty_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
 
 class SymptomTab extends StatefulWidget {
   @override
-  _SyntomTabState createState() => _SyntomTabState();
+  _SymptomTabState createState() => _SymptomTabState();
 }
 
-class _SyntomTabState extends State<SymptomTab> {
-  SyntomStore _syntomStore;
+class _SymptomTabState extends State<SymptomTab> {
+  SymptomStore _symptomStore;
 
   @override
   void initState() {
@@ -23,11 +23,11 @@ class _SyntomTabState extends State<SymptomTab> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _syntomStore = Provider.of<SyntomStore>(context);
+    _symptomStore = Provider.of<SymptomStore>(context);
 
     // check to see if already called api
-    if (!_syntomStore.loading) {
-      _syntomStore.getSyntoms();
+    if (!_symptomStore.loading) {
+      _symptomStore.getSymptoms();
     }
   }
 
@@ -35,36 +35,36 @@ class _SyntomTabState extends State<SymptomTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Observer(builder: (_) {
-        if (_syntomStore.loading) {
+        if (_symptomStore.loading) {
           return LoadingWidget();
         }
 
-        if (_syntomStore.error) {
+        if (_symptomStore.error) {
           return ErroWidget(() {
-            _syntomStore.getSyntoms();
+            _symptomStore.getSymptoms();
           });
         }
 
-        if (_syntomStore.success &&
-            _syntomStore.syntoms != null &&
-            _syntomStore.syntoms.isNotEmpty) {
+        if (_symptomStore.success &&
+            _symptomStore.symptoms != null &&
+            _symptomStore.symptoms.isNotEmpty) {
           return RefreshIndicator(
             onRefresh: () {
-              _syntomStore.getSyntoms();
+              _symptomStore.getSymptoms();
               return;
             },
             child: ListView.builder(
-              itemCount: _syntomStore.syntoms.length,
+              itemCount: _symptomStore.symptoms.length,
               physics: AlwaysScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Text(_syntomStore.syntoms[index].name);
+                return Text(_symptomStore.symptoms[index].name);
               },
             ),
           );
         }
 
-        if (_syntomStore.success && _syntomStore.syntoms.isEmpty ||
-            _syntomStore.syntoms == null) {
+        if (_symptomStore.success && _symptomStore.symptoms.isEmpty ||
+            _symptomStore.symptoms == null) {
           return EmptyWidget(() {
             print('add button');
           });

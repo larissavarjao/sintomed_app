@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SyntomType {
+class SymptomType {
   String _id;
   String _name;
   String _createdAt;
   String _updatedAt;
   String _deletedAt;
 
-  SyntomType({
+  SymptomType({
     String id,
     String name,
     String createdAt,
@@ -41,7 +41,7 @@ class SyntomType {
   String get deletedAt => _deletedAt;
   set deletedAt(String deletedAt) => _deletedAt = deletedAt;
 
-  SyntomType.fromJson(Map<String, dynamic> json) {
+  SymptomType.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
     _createdAt = json['createdAt'];

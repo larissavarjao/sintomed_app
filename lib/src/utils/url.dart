@@ -5,7 +5,7 @@ class Url {
   // Authentication URLs
   static const authUrl = '$baseUrl/auth';
   static const usersUrl = '$baseUrl/users';
-  static const syntomsUrl = '$baseUrl/syntoms';
-  static const syntomsTypesUrl = '$baseUrl/syntomstypes';
-  static const syntomsGenericsUrl = '$baseUrl/syntomsgenerics';
+  static const symptomsUrl = '$baseUrl/symptoms';
+  static const symptomsTypesUrl = '$baseUrl/symptomstypes';
+  static const symptomsGenericsUrl = '$baseUrl/symptomsgenerics';
 }
