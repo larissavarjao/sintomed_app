@@ -20,7 +20,6 @@ class _PrivateAppScreenState extends State<PrivateAppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('index $_selectedIndex');
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: [
         HomeTab(),

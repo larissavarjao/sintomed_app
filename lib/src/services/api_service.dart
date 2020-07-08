@@ -23,7 +23,6 @@ class APIService {
     SharedPrefService prefs =
         SharedPrefService(SharedPreferences.getInstance());
     String token = await prefs.authToken;
-    print('sintomas $token');
     Response response = await _dio.get(
       Url.symptomsUrl,
       options: RequestOptions(

@@ -36,48 +36,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _authStore = Provider.of<AuthStore>(context);
   }
 
-  FieldRegisterWidget getFirstNameForm(int index) {
+  FieldRegisterWidget getFirstNameForm(int index, double progress) {
     return FieldRegisterWidget(
-        onWillPop: () => Future.sync(onWillPop),
-        labelText: 'Nome',
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Digite um nome válido';
-          }
-          return null;
-        },
-        onChanged: _authStore.onChangeFirstName,
-        onContinue: () => nextFormStep(index),
-        formKey: _formsKeys[index]);
+      onWillPop: () => Future.sync(onWillPop),
+      labelText: 'Nome',
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Digite um nome válido';
+        }
+        return null;
+      },
+      onChanged: _authStore.onChangeFirstName,
+      onContinue: () => nextFormStep(index),
+      formKey: _formsKeys[index],
+      progressValue: progress,
+    );
   }
 
-  FieldRegisterWidget getlastNameForm(int index) {
+  FieldRegisterWidget getlastNameForm(int index, double progress) {
     return FieldRegisterWidget(
-        onWillPop: () => Future.sync(onWillPop),
-        labelText: 'Sobrenome',
-        onChanged: _authStore.onChangeLastName,
-        onContinue: () => nextFormStep(index),
-        onCancel: onWillPop,
-        formKey: _formsKeys[index]);
+      onWillPop: () => Future.sync(onWillPop),
+      labelText: 'Sobrenome',
+      onChanged: _authStore.onChangeLastName,
+      onContinue: () => nextFormStep(index),
+      onCancel: onWillPop,
+      formKey: _formsKeys[index],
+      progressValue: progress,
+    );
   }
 
-  FieldRegisterWidget getPacientNameForm(int index) {
+  FieldRegisterWidget getPacientNameForm(int index, double progress) {
     return FieldRegisterWidget(
-        onWillPop: () => Future.sync(onWillPop),
-        labelText: 'Nome do Paciente',
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Digite um nome de paciente válido';
-          }
-          return null;
-        },
-        onChanged: _authStore.onChangePacienttName,
-        onContinue: () => nextFormStep(index),
-        onCancel: onWillPop,
-        formKey: _formsKeys[index]);
+      onWillPop: () => Future.sync(onWillPop),
+      labelText: 'Nome do Paciente',
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Digite um nome de paciente válido';
+        }
+        return null;
+      },
+      onChanged: _authStore.onChangePacienttName,
+      onContinue: () => nextFormStep(index),
+      onCancel: onWillPop,
+      formKey: _formsKeys[index],
+      progressValue: progress,
+    );
   }
 
-  FieldRegisterWidget getEmailForm(int index) {
+  FieldRegisterWidget getEmailForm(int index, double progress) {
     return FieldRegisterWidget(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Email',
@@ -92,10 +98,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onContinue: () => nextFormStep(index),
       onCancel: onWillPop,
       formKey: _formsKeys[index],
+      progressValue: progress,
     );
   }
 
-  FieldRegisterWidget getPasswordForm(int index) {
+  FieldRegisterWidget getPasswordForm(int index, double progress) {
     return FieldRegisterWidget(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Senha',
@@ -110,10 +117,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onContinue: () => nextFormStep(index),
       onCancel: onWillPop,
       formKey: _formsKeys[index],
+      progressValue: progress,
     );
   }
 
-  FieldRegisterWidget getConfirmPasswordForm(int index) {
+  FieldRegisterWidget getConfirmPasswordForm(int index, double progress) {
     return FieldRegisterWidget(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Confirme sua senha',
@@ -129,17 +137,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onCancel: onWillPop,
       formKey: _formsKeys[index],
       isLastForm: true,
+      progressValue: progress,
     );
   }
 
-  List<FieldRegisterWidget> getForms(int index) {
+  List<FieldRegisterWidget> getForms(int index, double progress) {
     return [
-      getFirstNameForm(index),
-      getlastNameForm(index),
-      getPacientNameForm(index),
-      getEmailForm(index),
-      getPasswordForm(index),
-      getConfirmPasswordForm(index),
+      getFirstNameForm(index, progress),
+      getlastNameForm(index, progress),
+      getPacientNameForm(index, progress),
+      getEmailForm(index, progress),
+      getPasswordForm(index, progress),
+      getConfirmPasswordForm(index, progress),
     ];
   }
 
@@ -212,8 +221,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: PageView.builder(
                     controller: _formsPageViewController,
                     itemBuilder: (BuildContext context, int index) {
-                      List<FieldRegisterWidget> forms = getForms(index);
-                      print('forms $forms');
+                      int formSize = _formsKeys.length;
+                      int currentIndex = index + 1;
+                      double progress = currentIndex / formSize;
+                      List<FieldRegisterWidget> forms =
+                          getForms(index, progress);
                       return forms[index];
                     },
                   ),

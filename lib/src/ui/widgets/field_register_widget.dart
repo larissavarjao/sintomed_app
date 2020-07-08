@@ -14,6 +14,7 @@ class FieldRegisterWidget extends StatelessWidget {
   final Function onContinue;
   final Key formKey;
   final bool isLastForm;
+  final double progressValue;
 
   FieldRegisterWidget({
     this.onWillPop,
@@ -26,6 +27,7 @@ class FieldRegisterWidget extends StatelessWidget {
     this.onContinue,
     this.formKey,
     this.isLastForm,
+    this.progressValue,
   });
 
   @override
@@ -38,13 +40,24 @@ class FieldRegisterWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-              cursorColor: kPrimaryColor.shade900,
-              decoration: InputDecoration(labelText: labelText),
-              validator: validator,
-              keyboardType: keyboardType,
-              onChanged: onChanged,
-              obscureText: obscureText == true ? true : false,
+            Container(
+              child: Column(
+                children: <Widget>[
+                  LinearProgressIndicator(
+                    value: progressValue,
+                    backgroundColor: kPrimaryColor.shade200,
+                    valueColor: AlwaysStoppedAnimation(kPrimaryColor.shade900),
+                  ),
+                  TextFormField(
+                    cursorColor: kPrimaryColor.shade900,
+                    decoration: InputDecoration(labelText: labelText),
+                    validator: validator,
+                    keyboardType: keyboardType,
+                    onChanged: onChanged,
+                    obscureText: obscureText == true ? true : false,
+                  ),
+                ],
+              ),
             ),
             Row(
               children: <Widget>[
