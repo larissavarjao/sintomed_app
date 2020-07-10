@@ -43,6 +43,67 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
     });
   }
 
+  final _$happenedAtAtom = Atom(name: '_SymptomStoreBase.happenedAt');
+
+  @override
+  DateTime get happenedAt {
+    _$happenedAtAtom.reportRead();
+    return super.happenedAt;
+  }
+
+  @override
+  set happenedAt(DateTime value) {
+    _$happenedAtAtom.reportWrite(value, super.happenedAt, () {
+      super.happenedAt = value;
+    });
+  }
+
+  final _$durationSecondsAtom = Atom(name: '_SymptomStoreBase.durationSeconds');
+
+  @override
+  int get durationSeconds {
+    _$durationSecondsAtom.reportRead();
+    return super.durationSeconds;
+  }
+
+  @override
+  set durationSeconds(int value) {
+    _$durationSecondsAtom.reportWrite(value, super.durationSeconds, () {
+      super.durationSeconds = value;
+    });
+  }
+
+  final _$observationAtom = Atom(name: '_SymptomStoreBase.observation');
+
+  @override
+  String get observation {
+    _$observationAtom.reportRead();
+    return super.observation;
+  }
+
+  @override
+  set observation(String value) {
+    _$observationAtom.reportWrite(value, super.observation, () {
+      super.observation = value;
+    });
+  }
+
+  final _$symptomGenericIdAtom =
+      Atom(name: '_SymptomStoreBase.symptomGenericId');
+
+  @override
+  String get symptomGenericId {
+    _$symptomGenericIdAtom.reportRead();
+    return super.symptomGenericId;
+  }
+
+  @override
+  set symptomGenericId(String value) {
+    _$symptomGenericIdAtom.reportWrite(value, super.symptomGenericId, () {
+      super.symptomGenericId = value;
+    });
+  }
+
   final _$fetchSymptomsFutureAtom =
       Atom(name: '_SymptomStoreBase.fetchSymptomsFuture');
 
@@ -59,6 +120,42 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
     });
   }
 
+  final _$onChangeHappenedAtAsyncAction =
+      AsyncAction('_SymptomStoreBase.onChangeHappenedAt');
+
+  @override
+  Future<dynamic> onChangeHappenedAt(DateTime happenedAt) {
+    return _$onChangeHappenedAtAsyncAction
+        .run(() => super.onChangeHappenedAt(happenedAt));
+  }
+
+  final _$onChangeDurationAsyncAction =
+      AsyncAction('_SymptomStoreBase.onChangeDuration');
+
+  @override
+  Future<dynamic> onChangeDuration(int duration) {
+    return _$onChangeDurationAsyncAction
+        .run(() => super.onChangeDuration(duration));
+  }
+
+  final _$onChangeObservationAsyncAction =
+      AsyncAction('_SymptomStoreBase.onChangeObservation');
+
+  @override
+  Future<dynamic> onChangeObservation(String observation) {
+    return _$onChangeObservationAsyncAction
+        .run(() => super.onChangeObservation(observation));
+  }
+
+  final _$onChangeSymptomGenericIdAsyncAction =
+      AsyncAction('_SymptomStoreBase.onChangeSymptomGenericId');
+
+  @override
+  Future<dynamic> onChangeSymptomGenericId(String symptomGenericId) {
+    return _$onChangeSymptomGenericIdAsyncAction
+        .run(() => super.onChangeSymptomGenericId(symptomGenericId));
+  }
+
   final _$getSymptomsAsyncAction = AsyncAction('_SymptomStoreBase.getSymptoms');
 
   @override
@@ -66,10 +163,22 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
     return _$getSymptomsAsyncAction.run(() => super.getSymptoms());
   }
 
+  final _$createSymptomAsyncAction =
+      AsyncAction('_SymptomStoreBase.createSymptom');
+
+  @override
+  Future<dynamic> createSymptom() {
+    return _$createSymptomAsyncAction.run(() => super.createSymptom());
+  }
+
   @override
   String toString() {
     return '''
 symptoms: ${symptoms},
+happenedAt: ${happenedAt},
+durationSeconds: ${durationSeconds},
+observation: ${observation},
+symptomGenericId: ${symptomGenericId},
 fetchSymptomsFuture: ${fetchSymptomsFuture},
 loading: ${loading},
 error: ${error},
