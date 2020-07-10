@@ -13,6 +13,15 @@ abstract class _SymptomStoreBase with Store {
   List<Symptom> symptoms;
 
   @observable
+  DateTime happenedAt = DateTime.now();
+  @observable
+  int durationSeconds;
+  @observable
+  String observation;
+  @observable
+  String symptomGenericId;
+
+  @observable
   ObservableFuture<List<Symptom>> fetchSymptomsFuture =
       ObservableFuture<List<Symptom>>(emptySymptomsResponse);
 
@@ -29,6 +38,26 @@ abstract class _SymptomStoreBase with Store {
   bool get success => fetchSymptomsFuture.status == FutureStatus.fulfilled;
 
   @action
+  Future onChangeHappenedAt(DateTime happenedAt) async {
+    this.happenedAt = happenedAt;
+  }
+
+  @action
+  Future onChangeDuration(int duration) async {
+    this.durationSeconds = duration;
+  }
+
+  @action
+  Future onChangeObservation(String observation) async {
+    this.observation = observation;
+  }
+
+  @action
+  Future onChangeSymptomGenericId(String symptomGenericId) async {
+    this.symptomGenericId = symptomGenericId;
+  }
+
+  @action
   Future getSymptoms() async {
     final future = _repository.loadData();
     fetchSymptomsFuture = ObservableFuture(future);
@@ -37,4 +66,7 @@ abstract class _SymptomStoreBase with Store {
       this.symptoms = symptomsList;
     }).catchError((error) => print(error));
   }
+
+  @action
+  Future createSymptom() async {}
 }

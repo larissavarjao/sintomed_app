@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/ui/screens/splash_screen.dart';
@@ -25,11 +26,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Sintomed',
         routes: Routes.routes,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('pt'),
+        ],
         theme: ThemeData(
           primaryColor: kPrimaryColor.shade900,
           fontFamily: 'Montserrat',
           backgroundColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
+          primarySwatch: kPrimaryColor,
+          colorScheme: ColorScheme.light(
+            primary: kPrimaryColor,
+          ),
         ),
         home: SplashScreen(),
       ),

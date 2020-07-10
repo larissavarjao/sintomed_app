@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
+import 'package:sintomed_app/src/ui/pages/add_symptom_page.dart';
 import 'package:sintomed_app/src/ui/widgets/empty_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
@@ -66,7 +67,12 @@ class _SymptomTabState extends State<SymptomTab> {
         if (_symptomStore.success && _symptomStore.symptoms.isEmpty ||
             _symptomStore.symptoms == null) {
           return EmptyWidget(() {
-            print('add button');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddSymptomPage(),
+              ),
+            );
           });
         }
       }),

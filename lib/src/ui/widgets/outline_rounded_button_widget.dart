@@ -16,7 +16,10 @@ class OutlineRoundedButtonWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-        borderSide: BorderSide(color: kPrimaryColor, width: 1.5),
+        borderSide: BorderSide(
+          color: kPrimaryColor,
+          width: 1.5,
+        ),
         child: Text(
           text.toUpperCase(),
           style: TextStyle(

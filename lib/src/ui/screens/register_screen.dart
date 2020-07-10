@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/ui/widgets/dialog_widget.dart';
-import 'package:sintomed_app/src/ui/widgets/field_register_widget.dart';
+import 'package:sintomed_app/src/ui/pages/register_page.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -36,8 +36,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _authStore = Provider.of<AuthStore>(context);
   }
 
-  FieldRegisterWidget getFirstNameForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getFirstNameForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Nome',
       validator: (value) {
@@ -53,8 +53,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  FieldRegisterWidget getlastNameForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getlastNameForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Sobrenome',
       onChanged: _authStore.onChangeLastName,
@@ -65,8 +65,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  FieldRegisterWidget getPacientNameForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getPacientNameForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Nome do Paciente',
       validator: (value) {
@@ -83,8 +83,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  FieldRegisterWidget getEmailForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getEmailForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Email',
       validator: (value) {
@@ -102,8 +102,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  FieldRegisterWidget getPasswordForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getPasswordForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Senha',
       validator: (value) {
@@ -121,8 +121,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  FieldRegisterWidget getConfirmPasswordForm(int index, double progress) {
-    return FieldRegisterWidget(
+  RegisterPage getConfirmPasswordForm(int index, double progress) {
+    return RegisterPage(
       onWillPop: () => Future.sync(onWillPop),
       labelText: 'Confirme sua senha',
       validator: (value) {
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  List<FieldRegisterWidget> getForms(int index, double progress) {
+  List<RegisterPage> getForms(int index, double progress) {
     return [
       getFirstNameForm(index, progress),
       getlastNameForm(index, progress),
@@ -166,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void nextFormStep(int index) async {
-    int lastFormItem = getForms(index).length - 1;
+    int lastFormItem = _formsKeys.length - 1;
     bool isLastForm = index == lastFormItem;
     if (!isLastForm && _formsKeys[index].currentState.validate()) {
       _formsPageViewController.nextPage(
@@ -224,8 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       int formSize = _formsKeys.length;
                       int currentIndex = index + 1;
                       double progress = currentIndex / formSize;
-                      List<FieldRegisterWidget> forms =
-                          getForms(index, progress);
+                      List<RegisterPage> forms = getForms(index, progress);
                       return forms[index];
                     },
                   ),

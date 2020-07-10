@@ -3,7 +3,7 @@ import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
-class FieldRegisterWidget extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   final Function onWillPop;
   final String labelText;
   final Function validator;
@@ -16,7 +16,7 @@ class FieldRegisterWidget extends StatelessWidget {
   final bool isLastForm;
   final double progressValue;
 
-  FieldRegisterWidget({
+  RegisterPage({
     this.onWillPop,
     this.labelText,
     this.validator,
