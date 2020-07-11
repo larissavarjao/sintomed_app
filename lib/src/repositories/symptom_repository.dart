@@ -13,7 +13,7 @@ class SymptomsRepository {
       return symptoms;
     } catch (e) {
       print(e);
-      throw (e);
+      rethrow;
     }
   }
 }

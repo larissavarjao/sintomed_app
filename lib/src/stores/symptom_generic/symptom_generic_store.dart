@@ -35,7 +35,7 @@ abstract class _SymptomGenericStoreBase with Store {
     final future = _repository.loadData();
     fetchSymptomsGenericsFuture = ObservableFuture(future);
 
-    future.then((genericsList) {
+    await future.then((genericsList) {
       this.symptomsGenerics = genericsList;
     }).catchError((error) => print(error));
   }

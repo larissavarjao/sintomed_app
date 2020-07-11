@@ -14,7 +14,7 @@ class SymptomsTypesRepository {
       return symptomsTypes;
     } catch (e) {
       print(e);
-      throw (e);
+      rethrow;
     }
   }
 }

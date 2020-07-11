@@ -39,8 +39,9 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
       errorInvalidText: 'Digite uma data válida',
       errorFormatText: 'Digite uma data válida',
     );
-    if (picked != null && picked != _symptomStore.happenedAt)
-      _symptomStore.onChangeHappenedAt(picked);
+    if (picked != null && picked != _symptomStore.happenedAt) {
+      await _symptomStore.onChangeHappenedAt(picked);
+    }
   }
 
   @override
@@ -48,7 +49,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          padding: kPaddingPage,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

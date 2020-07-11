@@ -62,7 +62,7 @@ abstract class _SymptomStoreBase with Store {
     final future = _repository.loadData();
     fetchSymptomsFuture = ObservableFuture(future);
 
-    future.then((symptomsList) {
+    await future.then((symptomsList) {
       this.symptoms = symptomsList;
     }).catchError((error) => print(error));
   }

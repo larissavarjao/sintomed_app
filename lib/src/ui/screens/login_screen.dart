@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           var result = await _authStore.logInUser();
 
                           if (result) {
-                            Navigator.pushNamed(context, Routes.home);
+                            await Navigator.pushNamed(context, Routes.home);
                           }
                         }
                       },

@@ -33,7 +33,7 @@ abstract class _SymptomTypeStoreBase with Store {
     final future = _repository.loadData();
     fetchSymptomsTypesFuture = ObservableFuture(future);
 
-    future.then((typesList) {
+    await future.then((typesList) {
       this.symptomsTypes = typesList;
     }).catchError((error) => print(error));
   }

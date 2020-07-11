@@ -13,8 +13,7 @@ class SymptomsGenericsRepository {
           data.map((d) => SymptomGeneric.fromJson(d)).toList();
       return symptomsTypes;
     } catch (e) {
-      print(e);
-      throw (e);
+      rethrow;
     }
   }
 }

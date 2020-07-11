@@ -6,7 +6,7 @@ import 'package:sintomed_app/src/utils/url.dart';
 class APIService {
   String token;
   static BaseOptions options =
-      new BaseOptions(connectTimeout: 5000, receiveTimeout: 5000);
+      BaseOptions(connectTimeout: 5000, receiveTimeout: 5000);
   Dio _dio = Dio(options);
 
   Future<Response> getSymptomsTypes() async {
