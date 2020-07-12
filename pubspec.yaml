@@ -16,9 +16,7 @@ dependencies:
 
   # UI
   flutter_spinkit: ^4.1.2+1
-  line_awesome_icons: ^1.0.4+2
-  line_awesome_flutter: ^1.0.1
-  flutter_icons: ^1.1.0
+  material_design_icons_flutter: ^4.0.5345
   flare_flutter: ^2.0.4
   flutter_svg: 0.17.4
 
