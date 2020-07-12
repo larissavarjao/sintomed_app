@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class EmptyWidget extends StatelessWidget {
@@ -47,9 +47,10 @@ class EmptyWidget extends StatelessWidget {
           height: 24.0,
         ),
         onPressed != null
-            ? RoundedButtonWidget(
+            ? ButtonWidget(
                 onPressed: onPressed,
                 text: 'adicionar',
+                type: ButtonType.raised,
               )
             : SizedBox(),
       ],

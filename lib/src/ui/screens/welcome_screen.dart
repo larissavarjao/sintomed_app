@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sintomed_app/routes.dart';
-import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
-import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -49,17 +48,19 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(
               height: 48.0,
             ),
-            OutlineRoundedButtonWidget(
+            ButtonWidget(
               text: 'Cadastrar',
               onPressed: () {
                 Navigator.pushNamed(context, Routes.register);
               },
+              type: ButtonType.outline,
             ),
-            RoundedButtonWidget(
+            ButtonWidget(
               onPressed: () {
                 Navigator.pushNamed(context, Routes.login);
               },
               text: 'Entrar',
+              type: ButtonType.raised,
             ),
           ],
         ),

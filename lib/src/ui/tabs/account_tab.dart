@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 
 class AccountTab extends StatefulWidget {
   @override
@@ -28,12 +29,13 @@ class _AccountTabState extends State<AccountTab> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          child: RaisedButton(
+          child: ButtonWidget(
             onPressed: () async {
               await _authStore.logOutUser();
               Navigator.of(context).pushReplacementNamed(Routes.splash);
             },
-            child: Text('Sair'),
+            text: 'Sair',
+            type: ButtonType.raised,
           ),
         ),
       ),

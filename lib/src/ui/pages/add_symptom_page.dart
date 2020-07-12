@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
-import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/constants.dart';
 
 class AddSymptomPage extends StatefulWidget {
@@ -65,11 +65,12 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Selecione data'),
-                  OutlineRoundedButtonWidget(
+                  ButtonWidget(
                     onPressed: () {
                       _selectDate(context);
                     },
                     text: formatter.format(_symptomStore.happenedAt),
+                    type: ButtonType.outline,
                   ),
                 ],
               ),

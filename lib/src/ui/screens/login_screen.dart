@@ -5,7 +5,7 @@ import 'package:sintomed_app/routes.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
-import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                    RoundedButtonWidget(
+                    ButtonWidget(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           var result = await _authStore.logInUser();
@@ -93,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                       text: 'Login',
+                      type: ButtonType.raised,
                     )
                   ],
                 ),

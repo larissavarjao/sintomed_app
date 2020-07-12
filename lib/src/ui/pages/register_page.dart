@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sintomed_app/src/ui/widgets/outline_rounded_button_widget.dart';
-import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -62,20 +61,22 @@ class RegisterPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: OutlineRoundedButtonWidget(
+                  child: ButtonWidget(
                     onPressed: onCancel,
                     text: 'Voltar',
+                    type: ButtonType.outline,
                   ),
                 ),
                 SizedBox(
                   width: 12.0,
                 ),
                 Expanded(
-                  child: RoundedButtonWidget(
+                  child: ButtonWidget(
                     onPressed: onContinue,
                     text: isLastForm != null && isLastForm == true
                         ? 'Salvar'
                         : 'Próximo',
+                    type: ButtonType.raised,
                   ),
                 )
               ],

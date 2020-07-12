@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sintomed_app/src/ui/widgets/rounded_button_widget.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class ErroWidget extends StatelessWidget {
@@ -51,9 +51,10 @@ class ErroWidget extends StatelessWidget {
           height: 24.0,
         ),
         onPressed != null
-            ? RoundedButtonWidget(
+            ? ButtonWidget(
                 onPressed: onPressed,
                 text: 'Recarregar',
+                type: ButtonType.raised,
               )
             : SizedBox(),
       ],

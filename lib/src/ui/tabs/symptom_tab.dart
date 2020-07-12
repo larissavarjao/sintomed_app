@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/src/stores/symptom/symptom_store.dart';
 import 'package:sintomed_app/src/ui/pages/add_symptom_page.dart';
+import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/empty_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/loading_widget.dart';
 import 'package:sintomed_app/src/ui/widgets/error_widget.dart';
@@ -64,10 +64,18 @@ class _SymptomTabState extends State<SymptomTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Icon(MdiIcons.filterVariant),
+                        ButtonWidget(
+                          onPressed: () {},
+                          type: ButtonType.boxIcon,
+                          icon: MdiIcons.magnify,
+                        ),
                         Text('Sintomas', style: kTitleStyle),
-                        Icon(MdiIcons.magnify),
+                        ButtonWidget(
+                          onPressed: () {},
+                          type: ButtonType.boxIconAdd,
+                        )
                       ],
                     ),
                     ListView.builder(
