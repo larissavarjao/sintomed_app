@@ -56,7 +56,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
             children: <Widget>[
               Text(
                 'Adicionar Sintoma',
-                style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
+                style: kTitleStyle,
               ),
               SizedBox(
                 height: 24.0,

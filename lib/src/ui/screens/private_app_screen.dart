@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sintomed_app/src/ui/tabs/index.dart';
-import 'package:sintomed_app/src/ui/widgets/appbar_icon_widget.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sintomed_app/src/utils/colors.dart';
 
 class PrivateAppScreen extends StatefulWidget {
@@ -18,63 +17,44 @@ class _PrivateAppScreenState extends State<PrivateAppScreen> {
     });
   }
 
+  List<Widget> _widgetOptions = <Widget>[
+    HomeTab(),
+    SymptomTab(),
+    PillTab(),
+    AccountTab(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: [
-        HomeTab(),
-        SymptomTab(),
-        PillTab(),
-        AccountTab(),
-      ]),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        tooltip: 'Criar sintomas',
-        onPressed: () {},
-        backgroundColor: kSecondaryColor,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        elevation: 6.0,
-        notchMargin: 6.0,
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            AppBarIconWidget(
-              onItemTapped: () => _onItemTapped(0),
-              selectedIndex: _selectedIndex,
-              icon: LineAwesomeIcons.home,
-              index: 0,
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          selectedItemColor: kPrimaryColor,
+          onTap: _onItemTapped,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+          backgroundColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(MdiIcons.home),
+              title: Text('Home'),
             ),
-            AppBarIconWidget(
-              onItemTapped: () => _onItemTapped(1),
-              selectedIndex: _selectedIndex,
-              icon: LineAwesomeIcons.medical_file,
-              index: 1,
+            BottomNavigationBarItem(
+              icon: Icon(MdiIcons.clipboardPulse),
+              title: Text('Sintomas'),
             ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: SizedBox(
-                width: 14.0,
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(MdiIcons.pill),
+              title: Text('Remédios'),
             ),
-            AppBarIconWidget(
-              onItemTapped: () => _onItemTapped(2),
-              selectedIndex: _selectedIndex,
-              icon: LineAwesomeIcons.capsules,
-              index: 2,
+            BottomNavigationBarItem(
+              icon: Icon(MdiIcons.doctor),
+              title: Text('Usuário'),
             ),
-            AppBarIconWidget(
-              onItemTapped: () => _onItemTapped(3),
-              selectedIndex: _selectedIndex,
-              icon: LineAwesomeIcons.user,
-              index: 3,
-            ),
-          ],
-        ),
-      ),
+          ]),
     );
   }
 }
