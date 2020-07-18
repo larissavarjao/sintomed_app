@@ -159,7 +159,7 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
   final _$getSymptomsAsyncAction = AsyncAction('_SymptomStoreBase.getSymptoms');
 
   @override
-  Future<dynamic> getSymptoms() {
+  Future<ResponseDataError> getSymptoms() {
     return _$getSymptomsAsyncAction.run(() => super.getSymptoms());
   }
 

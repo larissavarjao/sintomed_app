@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:sintomed_app/src/models/response_data_error.dart';
 import 'package:sintomed_app/src/models/symptom_model.dart';
 import 'package:sintomed_app/src/repositories/symptom_repository.dart';
 
@@ -58,13 +59,19 @@ abstract class _SymptomStoreBase with Store {
   }
 
   @action
-  Future getSymptoms() async {
+  Future<ResponseDataError> getSymptoms() async {
+    List<Symptom> data;
+    dynamic error;
+
     final future = _repository.loadData();
     fetchSymptomsFuture = ObservableFuture(future);
 
     await future.then((symptomsList) {
       this.symptoms = symptomsList;
-    }).catchError((error) => print(error));
+      data = symptomsList;
+    }).catchError((e) => error = e);
+
+    return ResponseDataError(data: data, error: error);
   }
 
   @action
