@@ -18,7 +18,7 @@ abstract class _AuthStoreBase with Store {
   @observable
   User user;
   @observable
-  String token;
+  String token = '';
 
   @observable
   String firstName;
@@ -57,6 +57,16 @@ abstract class _AuthStoreBase with Store {
   bool get success => registerUserFuture.status == FutureStatus.fulfilled;
 
   @computed
+  bool get loginLoading => loginUserFuture.status == FutureStatus.pending;
+
+  @computed
+  bool get loginError => loginUserFuture.status == FutureStatus.rejected;
+
+  @computed
+  bool get loginSuccess =>
+      loginUserFuture.status == FutureStatus.fulfilled && this.token.isNotEmpty;
+
+  @computed
   bool get isPasswordsEquals => this.password == this.confirmPassword;
 
   @action
@@ -73,7 +83,7 @@ abstract class _AuthStoreBase with Store {
   @action
   Future<bool> isLoggedIn() async {
     bool isLogged = false;
-    bool isLoggedOnStore = this.token != null;
+    bool isLoggedOnStore = this.token != '';
     bool isLoggedOnSharedPref = await _prefService.isLoggedIn;
 
     if (!isLoggedOnStore && isLoggedOnSharedPref) {
@@ -138,12 +148,16 @@ abstract class _AuthStoreBase with Store {
 
   @action
   Future<bool> logInUser() async {
+    print('entrei login');
     final future = _repository.loginUser(this.email, this.password);
     loginUserFuture = ObservableFuture(loginUserFuture);
 
     bool isUserLogged;
 
     await future.then((userToken) {
+      print(
+        'entrei login sucesso $userToken',
+      );
       this.user = User.fromJson(userToken['user']);
       this.token = userToken['token'];
       this.setToken(token);

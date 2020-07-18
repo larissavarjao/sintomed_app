@@ -35,6 +35,7 @@ class _SymptomTabState extends State<SymptomTab> {
 
     if (!_symptomStore.loading) {
       symptomsResult = await _symptomStore.getSymptoms();
+      print('${symptomsResult.error}');
     }
   }
 
@@ -42,15 +43,20 @@ class _SymptomTabState extends State<SymptomTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Observer(builder: (_) {
-        if (symptomsResult.response.statusCode == 401) {
+        if (symptomsResult != null &&
+            symptomsResult.error != null &&
+            symptomsResult.error.response.statusCode == 401) {
+          print('401');
           Navigator.of(context).pushReplacementNamed(Routes.splash);
         }
 
         if (_symptomStore.loading) {
+          print('loading');
           return LoadingWidget();
         }
 
         if (_symptomStore.error) {
+          print('error');
           return ErroWidget(() {
             _symptomStore.getSymptoms();
           });
@@ -59,6 +65,7 @@ class _SymptomTabState extends State<SymptomTab> {
         if (_symptomStore.success &&
             _symptomStore.symptoms != null &&
             _symptomStore.symptoms.isNotEmpty) {
+          print('sucesso');
           return RefreshIndicator(
             onRefresh: () {
               _symptomStore.getSymptoms();
@@ -66,13 +73,13 @@ class _SymptomTabState extends State<SymptomTab> {
             },
             child: SafeArea(
               child: Container(
-                color: kGrayColor,
+                color: kPrimaryColor.shade50,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      color: kGrayColor,
+                      color: Colors.white,
                       padding: kPaddingContainer,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,18 +104,20 @@ class _SymptomTabState extends State<SymptomTab> {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: kPaddingContainer,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: _symptomStore.symptoms.length,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return SymptomCard(
-                            symptom: _symptomStore.symptoms[index],
-                          );
-                        },
+                    Expanded(
+                      child: Container(
+                        padding: kPaddingContainer,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: _symptomStore.symptoms.length,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return SymptomCard(
+                              symptom: _symptomStore.symptoms[index],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

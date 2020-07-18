@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sintomed_app/src/models/symptom_model.dart';
+import 'package:sintomed_app/src/ui/widgets/type_icon_widget.dart';
 
 class SymptomDetailsPage extends StatelessWidget {
   final Symptom symptom;
@@ -11,19 +12,13 @@ class SymptomDetailsPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Flexible(
-            child: Hero(
-              tag: 'type_icon${symptom.id}',
-              child: ClipRRect(
-                child: Image.asset(
-                  'images/long-page.png',
-                  height: 200.0,
-                  width: double.infinity,
-                ),
-              ),
+          Expanded(
+            child: TypeIconWidget(
+              symptom: symptom,
+              size: double.infinity,
+              type: 'page',
             ),
           ),
           Text(symptom.name),

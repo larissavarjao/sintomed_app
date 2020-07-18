@@ -4,9 +4,13 @@ import 'package:sintomed_app/src/ui/widgets/button_widget.dart';
 
 class TypeIconWidget extends StatelessWidget {
   final Symptom symptom;
+  final double size;
+  final String type;
 
   TypeIconWidget({
     this.symptom,
+    this.size,
+    this.type,
   });
 
   @override
@@ -19,8 +23,8 @@ class TypeIconWidget extends StatelessWidget {
           Radius.circular(kBorderRadiusButton),
         ),
         child: Image.asset(
-          'images/${symptom.typeName.toLowerCase()}-square.png',
-          height: 50.0,
+          'images/${symptom.typeName.toLowerCase()}-$type.png',
+          height: size,
         ),
       ),
     );

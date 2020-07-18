@@ -27,6 +27,27 @@ mixin _$AuthStore on _AuthStoreBase, Store {
   bool get success => (_$successComputed ??=
           Computed<bool>(() => super.success, name: '_AuthStoreBase.success'))
       .value;
+  Computed<bool> _$loginLoadingComputed;
+
+  @override
+  bool get loginLoading =>
+      (_$loginLoadingComputed ??= Computed<bool>(() => super.loginLoading,
+              name: '_AuthStoreBase.loginLoading'))
+          .value;
+  Computed<bool> _$loginErrorComputed;
+
+  @override
+  bool get loginError =>
+      (_$loginErrorComputed ??= Computed<bool>(() => super.loginError,
+              name: '_AuthStoreBase.loginError'))
+          .value;
+  Computed<bool> _$loginSuccessComputed;
+
+  @override
+  bool get loginSuccess =>
+      (_$loginSuccessComputed ??= Computed<bool>(() => super.loginSuccess,
+              name: '_AuthStoreBase.loginSuccess'))
+          .value;
   Computed<bool> _$isPasswordsEqualsComputed;
 
   @override
@@ -299,6 +320,9 @@ loginUserFuture: ${loginUserFuture},
 loading: ${loading},
 error: ${error},
 success: ${success},
+loginLoading: ${loginLoading},
+loginError: ${loginError},
+loginSuccess: ${loginSuccess},
 isPasswordsEquals: ${isPasswordsEquals}
     ''';
   }

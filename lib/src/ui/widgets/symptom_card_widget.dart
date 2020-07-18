@@ -28,7 +28,7 @@ class SymptomCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kBorderRadiusButton),
-          side: BorderSide(color: kGrayColor, width: 0.5),
+          side: BorderSide(color: kPrimaryColor.shade100, width: 0.5),
         ),
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
@@ -70,7 +70,7 @@ class SymptomCard extends StatelessWidget {
                   ),
                 ],
               ),
-              TypeIconWidget(symptom: symptom),
+              TypeIconWidget(symptom: symptom, size: 50.0, type: 'square'),
             ],
           ),
         ),

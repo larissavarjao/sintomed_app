@@ -34,12 +34,21 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Observer(
         builder: (_) {
-          if (_authStore.loading) {
+          print('l: ${_authStore.loginLoading}');
+          print('e: ${_authStore.loginError}');
+          print('s: ${_authStore.success}');
+          print('t1: ${_authStore.token != null}');
+          print('t: ${_authStore.token.isNotEmpty}');
+          if (_authStore.loginLoading) {
             return LoadingWidget();
           }
 
-          if (_authStore.error) {
+          if (_authStore.loginError) {
             return ErroWidget();
+          }
+
+          if (_authStore.loginSuccess) {
+            return Container(child: Text('sucesso'));
           }
 
           return SafeArea(
