@@ -35,3 +35,4 @@ const kSuccessColor = Color(0xFF38A700);
 const kWarningColor = Color(0xFFFFFD82);
 const kBlackColor = Color(0xFF252334);
 const kGrayColor = Color(0xFFB3B2BA);
+const klightGrayColor = Color(0xFFF2F5FA);
