@@ -195,6 +195,15 @@ mixin _$AuthStore on _AuthStoreBase, Store {
         .run(() => super.onChangeFirstName(firstName));
   }
 
+  final _$logoutUserOnInvalidTokenAsyncAction =
+      AsyncAction('_AuthStoreBase.logoutUserOnInvalidToken');
+
+  @override
+  Future<dynamic> logoutUserOnInvalidToken() {
+    return _$logoutUserOnInvalidTokenAsyncAction
+        .run(() => super.logoutUserOnInvalidToken());
+  }
+
   final _$isLoggedInAsyncAction = AsyncAction('_AuthStoreBase.isLoggedIn');
 
   @override

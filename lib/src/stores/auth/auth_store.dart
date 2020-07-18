@@ -65,6 +65,12 @@ abstract class _AuthStoreBase with Store {
   }
 
   @action
+  Future logoutUserOnInvalidToken() async {
+    this.token = null;
+    await _prefService.removeAuthToken();
+  }
+
+  @action
   Future<bool> isLoggedIn() async {
     bool isLogged = false;
     bool isLoggedOnStore = this.token != null;
