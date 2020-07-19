@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sintomed_app/routes.dart';
@@ -73,50 +74,100 @@ class _SymptomTabState extends State<SymptomTab> {
             },
             child: SafeArea(
               child: Container(
-                color: kPrimaryColor.shade50,
+                color: Colors.white,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      color: Colors.white,
-                      padding: kPaddingContainer,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          ButtonWidget(
-                            onPressed: () {},
-                            type: ButtonType.boxIcon,
-                            icon: MdiIcons.magnify,
-                          ),
-                          Text('Sintomas', style: kTitleStyle),
-                          ButtonWidget(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddSymptomPage(),
+                    GestureDetector(
+                      onTap: () =>
+                          FocusScope.of(context).requestFocus(FocusNode()),
+                      child: Container(
+                        color: Colors.white,
+                        padding: kPaddingContainer,
+                        child: Stack(
+                          alignment: Alignment.centerLeft,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  width: 48.0,
+                                  height: 48.0,
                                 ),
-                              );
-                            },
-                            type: ButtonType.boxIconAdd,
-                          )
-                        ],
+                                Text('Sintomas', style: kTitleStyle),
+                                ButtonWidget(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddSymptomPage(),
+                                      ),
+                                    );
+                                  },
+                                  type: ButtonType.boxIconAdd,
+                                )
+                              ],
+                            ),
+                            Container(
+                              width: 48.0,
+                              height: 48.0,
+                              child: Material(
+                                elevation: 6.0,
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: TextField(
+                                  cursorColor: kPrimaryColor,
+                                  autofocus: false,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    hintText: "Digite sua pesquisa",
+                                    hintStyle: TextStyle(fontSize: 19.0),
+                                    prefixIcon: Icon(
+                                      MdiIcons.magnify,
+                                      color: Colors.black,
+                                      size: 25.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        padding: kPaddingContainer,
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: _symptomStore.symptoms.length,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return SymptomCard(
-                              symptom: _symptomStore.symptoms[index],
-                            );
-                          },
+                      child: GestureDetector(
+                        onTap: () =>
+                            FocusScope.of(context).requestFocus(FocusNode()),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: GroupedListView(
+                            elements: _symptomStore.symptoms,
+                            groupBy: (element) => element.happenedAt.year,
+                            groupSeparatorBuilder: (dynamic groupSeparator) =>
+                                Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 24.0),
+                              child: Text(
+                                groupSeparator.toString(),
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            itemBuilder: (context, element) {
+                              return SymptomCard(
+                                symptom: element,
+                              );
+                            },
+                            order: GroupedListOrder.DESC,
+                          ),
                         ),
                       ),
                     ),
