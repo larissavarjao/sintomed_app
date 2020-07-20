@@ -21,7 +21,9 @@ class SymptomTab extends StatefulWidget {
 
 class _SymptomTabState extends State<SymptomTab> {
   SymptomStore _symptomStore;
-  dynamic symptomsResult;
+  dynamic _symptomsResult;
+  static double _textFieldInitialSize = 48.0;
+  double _textFieldWidth = _textFieldInitialSize;
 
   @override
   void initState() {
@@ -35,18 +37,22 @@ class _SymptomTabState extends State<SymptomTab> {
     _symptomStore = Provider.of<SymptomStore>(context);
 
     if (!_symptomStore.loading) {
-      symptomsResult = await _symptomStore.getSymptoms();
-      print('${symptomsResult.error}');
+      _symptomsResult = await _symptomStore.getSymptoms();
+      print('${_symptomsResult.error}');
     }
+  }
+
+  double getMaxScreenSize(BuildContext context) {
+    return MediaQuery.of(context).size.width;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Observer(builder: (_) {
-        if (symptomsResult != null &&
-            symptomsResult.error != null &&
-            symptomsResult.error.response.statusCode == 401) {
+        if (_symptomsResult != null &&
+            _symptomsResult.error != null &&
+            _symptomsResult.error.response.statusCode == 401) {
           print('401');
           Navigator.of(context).pushReplacementNamed(Routes.splash);
         }
@@ -80,8 +86,12 @@ class _SymptomTabState extends State<SymptomTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () =>
-                          FocusScope.of(context).requestFocus(FocusNode()),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        setState(() {
+                          _textFieldWidth = _textFieldInitialSize;
+                        });
+                      },
                       child: Container(
                         color: Colors.white,
                         padding: kPaddingContainer,
@@ -92,8 +102,8 @@ class _SymptomTabState extends State<SymptomTab> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
-                                  width: 48.0,
-                                  height: 48.0,
+                                  width: _textFieldInitialSize,
+                                  height: _textFieldInitialSize,
                                 ),
                                 Text('Sintomas', style: kTitleStyle),
                                 ButtonWidget(
@@ -109,16 +119,24 @@ class _SymptomTabState extends State<SymptomTab> {
                                 )
                               ],
                             ),
-                            Container(
-                              width: 48.0,
-                              height: 48.0,
+                            AnimatedContainer(
+                              width: _textFieldWidth,
+                              height: _textFieldWidth,
+                              duration: Duration(seconds: 1),
+                              curve: Curves.fastOutSlowIn,
                               child: Material(
                                 elevation: 6.0,
                                 borderRadius: BorderRadius.circular(15.0),
                                 child: TextField(
                                   cursorColor: kPrimaryColor,
                                   autofocus: false,
-                                  textAlignVertical: TextAlignVertical.center,
+                                  onTap: () {
+                                    setState(() {
+                                      _textFieldWidth =
+                                          getMaxScreenSize(context);
+                                    });
+                                  },
+                                  // textAlignVertical: TextAlignVertical.bottom,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
@@ -129,9 +147,17 @@ class _SymptomTabState extends State<SymptomTab> {
                                     hintStyle: TextStyle(fontSize: 19.0),
                                     prefixIcon: Icon(
                                       MdiIcons.magnify,
-                                      color: Colors.black,
+                                      color: kGrayColor,
                                       size: 25.0,
                                     ),
+                                    suffixIcon: _textFieldWidth ==
+                                            getMaxScreenSize(context)
+                                        ? Icon(
+                                            MdiIcons.closeCircle,
+                                            color: kGrayColor,
+                                            size: 25.0,
+                                          )
+                                        : null,
                                   ),
                                 ),
                               ),
@@ -142,8 +168,12 @@ class _SymptomTabState extends State<SymptomTab> {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () =>
-                            FocusScope.of(context).requestFocus(FocusNode()),
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          setState(() {
+                            _textFieldWidth = _textFieldInitialSize;
+                          });
+                        },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           child: GroupedListView(
