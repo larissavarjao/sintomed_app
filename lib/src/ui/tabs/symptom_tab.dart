@@ -24,6 +24,7 @@ class _SymptomTabState extends State<SymptomTab> {
   dynamic _symptomsResult;
   static double _textFieldInitialSize = 48.0;
   double _textFieldWidth = _textFieldInitialSize;
+  double _textFieldHeigth = _textFieldInitialSize;
 
   @override
   void initState() {
@@ -38,185 +39,209 @@ class _SymptomTabState extends State<SymptomTab> {
 
     if (!_symptomStore.loading) {
       _symptomsResult = await _symptomStore.getSymptoms();
-      print('${_symptomsResult.error}');
     }
   }
 
-  double getMaxScreenSize(BuildContext context) {
+  double _getMaxScreenSize(BuildContext context) {
     return MediaQuery.of(context).size.width;
+  }
+
+  void _goToSplashScreen() {
+    Navigator.of(context).pushReplacementNamed(Routes.splash);
+  }
+
+  void _goToAddSymptomPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddSymptomPage()));
+  }
+
+  void _removeFocusFromSearchTextField() {
+    FocusScope.of(context).requestFocus(FocusNode());
+    _decreaseTextFieldSize();
+  }
+
+  void _increaseTextFieldSize() {
+    setState(() {
+      _textFieldWidth = _getMaxScreenSize(context);
+      _textFieldHeigth = 60.0;
+    });
+  }
+
+  void _decreaseTextFieldSize() {
+    setState(() {
+      _textFieldWidth = _textFieldInitialSize;
+      _textFieldHeigth = _textFieldInitialSize;
+    });
+  }
+
+  Row _getHeaderTitleAndFloatingActionButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Container(
+          width: _textFieldInitialSize,
+          height: _textFieldInitialSize,
+        ),
+        Text('Sintomas', style: kTitleStyle),
+        ButtonWidget(
+          onPressed: _goToAddSymptomPage,
+          type: ButtonType.boxIconAdd,
+        )
+      ],
+    );
+  }
+
+  AnimatedContainer _getSearchBox() {
+    return AnimatedContainer(
+      width: _textFieldWidth,
+      height: _textFieldHeigth,
+      duration: Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+      child: Material(
+        elevation: 6.0,
+        borderRadius: BorderRadius.circular(15.0),
+        child: TextField(
+          cursorColor: kPrimaryColor,
+          autofocus: false,
+          onTap: _increaseTextFieldSize,
+          // textAlignVertical: TextAlignVertical.bottom,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            hintText: "Digite sua pesquisa",
+            hintStyle: TextStyle(fontSize: 19.0),
+            prefixIcon: Icon(
+              MdiIcons.magnify,
+              color: kGrayColor,
+              size: 25.0,
+            ),
+            suffixIcon: _textFieldWidth == _getMaxScreenSize(context)
+                ? Icon(
+                    MdiIcons.closeCircle,
+                    color: kGrayColor,
+                    size: 25.0,
+                  )
+                : null,
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _getHeader() {
+    return GestureDetector(
+      onTap: _removeFocusFromSearchTextField,
+      child: Container(
+        color: Colors.white,
+        padding: kPaddingContainer,
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: <Widget>[
+            _getHeaderTitleAndFloatingActionButton(),
+            _getSearchBox(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Expanded _getList() {
+    return Expanded(
+      child: GestureDetector(
+        onTap: _removeFocusFromSearchTextField,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16.0),
+          child: GroupedListView(
+            elements: _symptomStore.symptoms,
+            groupBy: (element) => element.happenedAt.year,
+            groupSeparatorBuilder: (dynamic groupSeparator) => Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 24.0),
+              child: Text(
+                groupSeparator.toString(),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            itemBuilder: (context, element) {
+              return SymptomCard(
+                symptom: element,
+              );
+            },
+            order: GroupedListOrder.DESC,
+          ),
+        ),
+      ),
+    );
+  }
+
+  RefreshIndicator _getSymptomsScreen() {
+    return RefreshIndicator(
+      onRefresh: () {
+        _symptomStore.getSymptoms();
+        return;
+      },
+      child: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _getHeader(),
+              _getList(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Observer(builder: (_) {
-        if (_symptomsResult != null &&
-            _symptomsResult.error != null &&
-            _symptomsResult.error.response.statusCode == 401) {
-          print('401');
-          Navigator.of(context).pushReplacementNamed(Routes.splash);
+        bool isResultWithError =
+            _symptomsResult != null && _symptomsResult.error != null;
+        bool isResultErrorUnauthorized = isResultWithError &&
+            _symptomsResult.error.response.statusCode == 401;
+        bool isSymptomsLoading = _symptomStore.loading;
+        bool isSymptomsResponseError = _symptomStore.error;
+        bool isSymptomsResponseSuccess = _symptomStore.success;
+        bool isSymptomsNotNull = _symptomStore.symptoms != null;
+        bool isSymptomsNotEmpty = _symptomStore.symptoms.isNotEmpty;
+        bool hasSymptomsToShow = isSymptomsResponseSuccess &&
+            isSymptomsNotNull &&
+            isSymptomsNotEmpty;
+        bool noHasSymptomsToShow = isSymptomsResponseSuccess &&
+            !isSymptomsNotNull &&
+            !isSymptomsNotEmpty;
+
+        if (isResultErrorUnauthorized) {
+          _goToSplashScreen();
         }
 
-        if (_symptomStore.loading) {
-          print('loading');
+        if (isSymptomsLoading) {
           return LoadingWidget();
         }
 
-        if (_symptomStore.error) {
-          print('error');
+        if (isSymptomsResponseError) {
           return ErroWidget(() {
             _symptomStore.getSymptoms();
           });
         }
 
-        if (_symptomStore.success &&
-            _symptomStore.symptoms != null &&
-            _symptomStore.symptoms.isNotEmpty) {
-          print('sucesso');
-          return RefreshIndicator(
-            onRefresh: () {
-              _symptomStore.getSymptoms();
-              return;
-            },
-            child: SafeArea(
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        setState(() {
-                          _textFieldWidth = _textFieldInitialSize;
-                        });
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        padding: kPaddingContainer,
-                        child: Stack(
-                          alignment: Alignment.centerLeft,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: _textFieldInitialSize,
-                                  height: _textFieldInitialSize,
-                                ),
-                                Text('Sintomas', style: kTitleStyle),
-                                ButtonWidget(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddSymptomPage(),
-                                      ),
-                                    );
-                                  },
-                                  type: ButtonType.boxIconAdd,
-                                )
-                              ],
-                            ),
-                            AnimatedContainer(
-                              width: _textFieldWidth,
-                              height: _textFieldWidth,
-                              duration: Duration(seconds: 1),
-                              curve: Curves.fastOutSlowIn,
-                              child: Material(
-                                elevation: 6.0,
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: TextField(
-                                  cursorColor: kPrimaryColor,
-                                  autofocus: false,
-                                  onTap: () {
-                                    setState(() {
-                                      _textFieldWidth =
-                                          getMaxScreenSize(context);
-                                    });
-                                  },
-                                  // textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    hintText: "Digite sua pesquisa",
-                                    hintStyle: TextStyle(fontSize: 19.0),
-                                    prefixIcon: Icon(
-                                      MdiIcons.magnify,
-                                      color: kGrayColor,
-                                      size: 25.0,
-                                    ),
-                                    suffixIcon: _textFieldWidth ==
-                                            getMaxScreenSize(context)
-                                        ? Icon(
-                                            MdiIcons.closeCircle,
-                                            color: kGrayColor,
-                                            size: 25.0,
-                                          )
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          setState(() {
-                            _textFieldWidth = _textFieldInitialSize;
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: GroupedListView(
-                            elements: _symptomStore.symptoms,
-                            groupBy: (element) => element.happenedAt.year,
-                            groupSeparatorBuilder: (dynamic groupSeparator) =>
-                                Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 24.0),
-                              child: Text(
-                                groupSeparator.toString(),
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            itemBuilder: (context, element) {
-                              return SymptomCard(
-                                symptom: element,
-                              );
-                            },
-                            order: GroupedListOrder.DESC,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+        if (hasSymptomsToShow) {
+          return _getSymptomsScreen();
         }
 
-        if (_symptomStore.success && _symptomStore.symptoms.isEmpty ||
-            _symptomStore.symptoms == null) {
+        if (noHasSymptomsToShow) {
           return EmptyWidget(() {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddSymptomPage(),
-              ),
-            );
+            _goToAddSymptomPage();
           });
         }
       }),
