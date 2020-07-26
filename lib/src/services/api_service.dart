@@ -63,6 +63,13 @@ class APIService {
   }
 
   Future<Response> loginUser(String email, String password) async {
+    _dio.interceptors.add(InterceptorsWrapper(onError: (DioError error) async {
+      if (error.response.statusCode == 401) {
+        print('LOGIN ERRADO');
+        AuthStore authStore = AuthStore();
+        await authStore.logoutUserOnInvalidToken();
+      }
+    }));
     Response response = await _dio.post(Url.authUrl, data: {
       'email': email,
       'password': password,

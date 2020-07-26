@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   navigate() async {
     bool isLogged = await _authStore.isLoggedIn();
+    print('isLogged: $isLogged');
     if (isLogged) {
       Navigator.of(context).pushReplacementNamed(Routes.home);
     } else {

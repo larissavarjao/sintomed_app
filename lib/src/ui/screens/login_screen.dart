@@ -16,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   AuthStore _authStore;
+  bool loading = false;
+  bool error = false;
 
   @override
   void initState() {
@@ -29,85 +31,111 @@ class _LoginScreenState extends State<LoginScreen> {
     _authStore = Provider.of<AuthStore>(context);
   }
 
+  Widget _getLoginForm() {
+    Color _cursorColor = kPrimaryColor.shade900;
+    bool _disabled = loading || error;
+    print('_disabled $_disabled');
+
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          TextFormField(
+            cursorColor: _cursorColor,
+            decoration: InputDecoration(labelText: 'Email'),
+            enabled: !_disabled,
+            validator: (value) {
+              if (_authStore.email.isEmpty) {
+                return 'Digite um email válido';
+              }
+              return null;
+            },
+            keyboardType: TextInputType.emailAddress,
+            onChanged: _authStore.onChangeEmail,
+          ),
+          TextFormField(
+            cursorColor: _cursorColor,
+            decoration: InputDecoration(labelText: 'Senha'),
+            enabled: !_disabled,
+            validator: (value) {
+              if (_authStore.password.isEmpty) {
+                return 'Digite uma senha válido';
+              }
+              return null;
+            },
+            obscureText: true,
+            onChanged: _authStore.onChangePassword,
+          ),
+          _authStore.loginError ? Text('Error') : Container(),
+        ],
+      ),
+    );
+  }
+
+  Widget _getLoginButton() {
+    bool _disabled = loading || error;
+    return ButtonWidget(
+      onPressed: !_disabled
+          ? () async {
+              setState(() {
+                loading = true;
+              });
+              if (_formKey.currentState.validate()) {
+                var result = await _authStore.logInUser();
+
+                if (result == true) {
+                  await Navigator.pushNamed(context, Routes.home);
+                } else {
+                  setState(() {
+                    error = true;
+                  });
+                }
+              }
+
+              setState(() {
+                loading = false;
+              });
+            }
+          : null,
+      text: 'Login',
+      type: ButtonType.raised,
+    );
+  }
+
+  Widget _getLoginScreen() {
+    return SafeArea(
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 42.0, vertical: 32.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _getLoginForm(),
+              _getLoginButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Observer(
         builder: (_) {
-          print('l: ${_authStore.loginLoading}');
-          print('e: ${_authStore.loginError}');
-          print('s: ${_authStore.success}');
-          print('t1: ${_authStore.token != null}');
-          print('t: ${_authStore.token.isNotEmpty}');
-          if (_authStore.loginLoading) {
-            return LoadingWidget();
-          }
-
-          if (_authStore.loginError) {
-            return ErroWidget();
-          }
-
-          if (_authStore.loginSuccess) {
-            return Container(child: Text('sucesso'));
-          }
-
-          return SafeArea(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 42.0, vertical: 32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          TextFormField(
-                            cursorColor: kPrimaryColor.shade900,
-                            decoration: InputDecoration(labelText: 'Email'),
-                            validator: (value) {
-                              if (_authStore.email.isEmpty) {
-                                return 'Digite um email válido';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: _authStore.onChangeEmail,
-                          ),
-                          TextFormField(
-                            cursorColor: kPrimaryColor.shade900,
-                            decoration: InputDecoration(labelText: 'Senha'),
-                            validator: (value) {
-                              if (_authStore.password.isEmpty) {
-                                return 'Digite uma senha válido';
-                              }
-                              return null;
-                            },
-                            obscureText: true,
-                            onChanged: _authStore.onChangePassword,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ButtonWidget(
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          var result = await _authStore.logInUser();
-
-                          if (result) {
-                            await Navigator.pushNamed(context, Routes.home);
-                          }
-                        }
-                      },
-                      text: 'Login',
-                      type: ButtonType.raised,
-                    )
-                  ],
-                ),
-              ),
-            ),
+          print('_authStore.loginLoading ${_authStore.loginLoading}');
+          print('loading ${loading}');
+          print('_authStore.loginError ${_authStore.loginError}');
+          print('_authStore.error ${_authStore.error}');
+          return Stack(
+            children: <Widget>[
+              _getLoginScreen(),
+              loading ? LoadingWidget() : Container(),
+              error ? ErroWidget() : Container(),
+            ],
           );
         },
       ),

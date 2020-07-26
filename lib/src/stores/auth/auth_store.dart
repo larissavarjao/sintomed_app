@@ -32,6 +32,8 @@ abstract class _AuthStoreBase with Store {
   String password;
   @observable
   String confirmPassword;
+  @observable
+  bool errorLogin = false;
 
   @observable
   ObservableFuture<Response> registerUserFuture =
@@ -78,6 +80,11 @@ abstract class _AuthStoreBase with Store {
   Future logoutUserOnInvalidToken() async {
     this.token = null;
     await _prefService.removeAuthToken();
+  }
+
+  @action
+  Future onChangeLoginError(bool newState) async {
+    this.errorLogin = true;
   }
 
   @action
@@ -148,16 +155,12 @@ abstract class _AuthStoreBase with Store {
 
   @action
   Future<bool> logInUser() async {
-    print('entrei login');
     final future = _repository.loginUser(this.email, this.password);
     loginUserFuture = ObservableFuture(loginUserFuture);
 
     bool isUserLogged;
 
     await future.then((userToken) {
-      print(
-        'entrei login sucesso $userToken',
-      );
       this.user = User.fromJson(userToken['user']);
       this.token = userToken['token'];
       this.setToken(token);

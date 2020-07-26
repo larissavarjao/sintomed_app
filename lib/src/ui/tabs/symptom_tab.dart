@@ -213,13 +213,15 @@ class _SymptomTabState extends State<SymptomTab> {
         bool isSymptomsResponseError = _symptomStore.error;
         bool isSymptomsResponseSuccess = _symptomStore.success;
         bool isSymptomsNotNull = _symptomStore.symptoms != null;
-        bool isSymptomsNotEmpty = _symptomStore.symptoms.isNotEmpty;
-        bool hasSymptomsToShow = isSymptomsResponseSuccess &&
-            isSymptomsNotNull &&
-            isSymptomsNotEmpty;
+        bool isSymptomsIsNotEmpty =
+            isSymptomsNotNull && _symptomStore.symptoms.isNotEmpty;
+        bool isSymptomsIsEmpty =
+            !isSymptomsNotNull && _symptomStore.symptoms.isEmpty;
+        bool hasSymptomsToShow =
+            isSymptomsResponseSuccess && isSymptomsIsNotEmpty;
         bool noHasSymptomsToShow = isSymptomsResponseSuccess &&
             !isSymptomsNotNull &&
-            !isSymptomsNotEmpty;
+            isSymptomsIsEmpty;
 
         if (isResultErrorUnauthorized) {
           _goToSplashScreen();

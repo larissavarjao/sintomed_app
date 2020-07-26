@@ -10,7 +10,7 @@ class UserRepository {
       return response;
     } catch (e) {
       print(e);
-      rethrow;
+      throw (e);
     }
   }
 
@@ -21,7 +21,7 @@ class UserRepository {
       return data;
     } catch (e) {
       print(e);
-      rethrow;
+      throw (e);
     }
   }
 }
