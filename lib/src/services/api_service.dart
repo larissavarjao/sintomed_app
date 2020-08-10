@@ -10,10 +10,22 @@ class APIService {
       BaseOptions(connectTimeout: 5000, receiveTimeout: 5000);
   Dio _dio = Dio(options);
 
+  _getRequestOptions() async {
+    SharedPrefService prefs =
+        SharedPrefService(SharedPreferences.getInstance());
+    String token = await prefs.authToken;
+    return RequestOptions(
+      connectTimeout: 5000,
+      receiveTimeout: 5000,
+      headers: {
+        'authorization': 'Bearer $token',
+      },
+    );
+  }
+
   Future logoutOnInvalidToken() async {
     _dio.interceptors.add(InterceptorsWrapper(onError: (DioError error) async {
       if (error.response.statusCode == 401) {
-        print('LOGIN ERRADO');
         AuthStore authStore = AuthStore();
         await authStore.logoutUserOnInvalidToken();
       }
@@ -22,30 +34,27 @@ class APIService {
 
   Future<Response> getSymptomsTypes() async {
     await logoutOnInvalidToken();
-    Response response = await _dio.get(Url.symptomsTypesUrl);
+    Response response = await _dio.get(
+      Url.symptomsTypesUrl,
+      options: await _getRequestOptions(),
+    );
     return response;
   }
 
   Future<Response> getSymptomsGenerics() async {
     await logoutOnInvalidToken();
-    Response response = await _dio.get(Url.symptomsGenericsUrl);
+    Response response = await _dio.get(
+      Url.symptomsGenericsUrl,
+      options: await _getRequestOptions(),
+    );
     return response;
   }
 
   Future<Response> getSymptoms() async {
     await logoutOnInvalidToken();
-    SharedPrefService prefs =
-        SharedPrefService(SharedPreferences.getInstance());
-    String token = await prefs.authToken;
     Response response = await _dio.get(
       Url.symptomsUrl,
-      options: RequestOptions(
-        connectTimeout: 5000,
-        receiveTimeout: 5000,
-        headers: {
-          'authorization': 'Bearer $token',
-        },
-      ),
+      options: await _getRequestOptions(),
     );
     return response;
   }
@@ -65,7 +74,6 @@ class APIService {
   Future<Response> loginUser(String email, String password) async {
     _dio.interceptors.add(InterceptorsWrapper(onError: (DioError error) async {
       if (error.response.statusCode == 401) {
-        print('LOGIN ERRADO');
         AuthStore authStore = AuthStore();
         await authStore.logoutUserOnInvalidToken();
       }

@@ -176,6 +176,21 @@ mixin _$AuthStore on _AuthStoreBase, Store {
     });
   }
 
+  final _$errorLoginAtom = Atom(name: '_AuthStoreBase.errorLogin');
+
+  @override
+  bool get errorLogin {
+    _$errorLoginAtom.reportRead();
+    return super.errorLogin;
+  }
+
+  @override
+  set errorLogin(bool value) {
+    _$errorLoginAtom.reportWrite(value, super.errorLogin, () {
+      super.errorLogin = value;
+    });
+  }
+
   final _$registerUserFutureAtom =
       Atom(name: '_AuthStoreBase.registerUserFuture');
 
@@ -223,6 +238,15 @@ mixin _$AuthStore on _AuthStoreBase, Store {
   Future<dynamic> logoutUserOnInvalidToken() {
     return _$logoutUserOnInvalidTokenAsyncAction
         .run(() => super.logoutUserOnInvalidToken());
+  }
+
+  final _$onChangeLoginErrorAsyncAction =
+      AsyncAction('_AuthStoreBase.onChangeLoginError');
+
+  @override
+  Future<dynamic> onChangeLoginError(bool newState) {
+    return _$onChangeLoginErrorAsyncAction
+        .run(() => super.onChangeLoginError(newState));
   }
 
   final _$isLoggedInAsyncAction = AsyncAction('_AuthStoreBase.isLoggedIn');
@@ -315,6 +339,7 @@ pacientName: ${pacientName},
 email: ${email},
 password: ${password},
 confirmPassword: ${confirmPassword},
+errorLogin: ${errorLogin},
 registerUserFuture: ${registerUserFuture},
 loginUserFuture: ${loginUserFuture},
 loading: ${loading},

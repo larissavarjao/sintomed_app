@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sintomed_app/src/models/response_data_error.dart';
 import 'package:sintomed_app/src/models/symptom_model.dart';
@@ -16,7 +17,7 @@ abstract class _SymptomStoreBase with Store {
   @observable
   DateTime happenedAt = DateTime.now();
   @observable
-  int durationSeconds;
+  TimeOfDay duration = TimeOfDay(hour: 0, minute: 5);
   @observable
   String observation;
   @observable
@@ -44,8 +45,8 @@ abstract class _SymptomStoreBase with Store {
   }
 
   @action
-  Future onChangeDuration(int duration) async {
-    this.durationSeconds = duration;
+  Future onChangeDuration(TimeOfDay duration) async {
+    this.duration = duration;
   }
 
   @action
@@ -55,6 +56,7 @@ abstract class _SymptomStoreBase with Store {
 
   @action
   Future onChangeSymptomGenericId(String symptomGenericId) async {
+    print('entrei aqui $symptomGenericId');
     this.symptomGenericId = symptomGenericId;
   }
 

@@ -58,18 +58,18 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
     });
   }
 
-  final _$durationSecondsAtom = Atom(name: '_SymptomStoreBase.durationSeconds');
+  final _$durationAtom = Atom(name: '_SymptomStoreBase.duration');
 
   @override
-  int get durationSeconds {
-    _$durationSecondsAtom.reportRead();
-    return super.durationSeconds;
+  TimeOfDay get duration {
+    _$durationAtom.reportRead();
+    return super.duration;
   }
 
   @override
-  set durationSeconds(int value) {
-    _$durationSecondsAtom.reportWrite(value, super.durationSeconds, () {
-      super.durationSeconds = value;
+  set duration(TimeOfDay value) {
+    _$durationAtom.reportWrite(value, super.duration, () {
+      super.duration = value;
     });
   }
 
@@ -133,7 +133,7 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
       AsyncAction('_SymptomStoreBase.onChangeDuration');
 
   @override
-  Future<dynamic> onChangeDuration(int duration) {
+  Future<dynamic> onChangeDuration(TimeOfDay duration) {
     return _$onChangeDurationAsyncAction
         .run(() => super.onChangeDuration(duration));
   }
@@ -176,7 +176,7 @@ mixin _$SymptomStore on _SymptomStoreBase, Store {
     return '''
 symptoms: ${symptoms},
 happenedAt: ${happenedAt},
-durationSeconds: ${durationSeconds},
+duration: ${duration},
 observation: ${observation},
 symptomGenericId: ${symptomGenericId},
 fetchSymptomsFuture: ${fetchSymptomsFuture},

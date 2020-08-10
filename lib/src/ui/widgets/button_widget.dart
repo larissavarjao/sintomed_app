@@ -15,8 +15,9 @@ class ButtonWidget extends StatelessWidget {
   final String text;
   final ButtonType type;
   final IconData icon;
+  final double width;
 
-  ButtonWidget({this.onPressed, this.text, this.type, this.icon});
+  ButtonWidget({this.onPressed, this.text, this.type, this.icon, this.width});
 
   Text _getTextButton() {
     return Text(
