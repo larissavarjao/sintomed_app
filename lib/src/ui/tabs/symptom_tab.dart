@@ -215,13 +215,12 @@ class _SymptomTabState extends State<SymptomTab> {
         bool isSymptomsNotNull = _symptomStore.symptoms != null;
         bool isSymptomsIsNotEmpty =
             isSymptomsNotNull && _symptomStore.symptoms.isNotEmpty;
-        bool isSymptomsIsEmpty =
-            !isSymptomsNotNull && _symptomStore.symptoms.isEmpty;
         bool hasSymptomsToShow =
             isSymptomsResponseSuccess && isSymptomsIsNotEmpty;
-        bool noHasSymptomsToShow = isSymptomsResponseSuccess &&
-            !isSymptomsNotNull &&
-            isSymptomsIsEmpty;
+        bool isSymptomsIsEmpty =
+            isSymptomsNotNull && _symptomStore.symptoms.isEmpty;
+        bool noHasSymptomsToShow =
+            isSymptomsResponseSuccess && isSymptomsIsEmpty;
 
         if (isResultErrorUnauthorized) {
           _goToSplashScreen();
@@ -246,6 +245,8 @@ class _SymptomTabState extends State<SymptomTab> {
             _goToAddSymptomPage();
           });
         }
+
+        return LoadingWidget();
       }),
     );
   }
