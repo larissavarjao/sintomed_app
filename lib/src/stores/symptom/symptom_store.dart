@@ -56,7 +56,6 @@ abstract class _SymptomStoreBase with Store {
 
   @action
   Future onChangeSymptomGenericId(String symptomGenericId) async {
-    print('entrei aqui $symptomGenericId');
     this.symptomGenericId = symptomGenericId;
   }
 

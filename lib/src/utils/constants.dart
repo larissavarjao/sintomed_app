@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String kDatePattern = 'dd/mm/yyyy';
+const String kDatePattern = 'dd/MM/yyyy';
 const EdgeInsets kPaddingPage =
     EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0);
 const EdgeInsets kPaddingContainer =

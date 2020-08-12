@@ -106,7 +106,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
   Future<Null> _selectHappenedAtDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: _symptomStore.happenedAt,
       firstDate: DateTime(2015, 8),
       lastDate: DateTime.now(),
       helpText: 'SELECIONE UMA DATA',
@@ -156,7 +156,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
                       onPressed: () {
                         _showSymptomsList(context);
                       },
-                      text: 'Selecione seu simtoma.',
+                      text: 'Selecione seu sintoma.',
                       type: ButtonType.outline,
                     ),
                   ),
@@ -176,7 +176,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
                                 BorderRadius.circular(kBorderRadiusButton),
                           ),
                           hintText:
-                              'Descreva aqui observações mais detalhadas sobre seu sintoma.',
+                              'Descreva aqui observações mais detalhadas sobre seu sintoma',
                           alignLabelWithHint: true,
                         ),
                       ),
