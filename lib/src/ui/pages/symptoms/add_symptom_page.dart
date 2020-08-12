@@ -131,6 +131,117 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
     }
   }
 
+  Text _getSymptomPageTitle() {
+    return Text(
+      'Adicionar Sintoma',
+      style: kTitleStyle,
+    );
+  }
+
+  SizedBox _getSymptomTitleSpace() {
+    return SizedBox(
+      height: 32.0,
+    );
+  }
+
+  SizedBox _getSymptomFieldsSpace() {
+    return SizedBox(
+      height: 12.0,
+    );
+  }
+
+  Container _getSymptomGenericIdButton() {
+    return Container(
+      width: double.infinity,
+      child: ButtonWidget(
+        onPressed: () {
+          _showSymptomsList(context);
+        },
+        text: 'Selecione seu sintoma.',
+        type: ButtonType.outline,
+      ),
+    );
+  }
+
+  TextField _getSymptomDescriptionField() {
+    return TextField(
+      maxLines: 4,
+      keyboardType: TextInputType.multiline,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(kBorderRadiusButton),
+        ),
+        hintText: 'Descreva aqui observações mais detalhadas sobre seu sintoma',
+        alignLabelWithHint: true,
+      ),
+    );
+  }
+
+  Column _getSymptomHappenedAtField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Selecione data'),
+        ButtonWidget(
+          onPressed: () {
+            _selectHappenedAtDate(context);
+          },
+          text: formatter.format(_symptomStore.happenedAt),
+          type: ButtonType.outline,
+        ),
+      ],
+    );
+  }
+
+  Column _getSymptomDurationField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Text('Duração (opcional)'),
+        ButtonWidget(
+          onPressed: () {
+            _selectDurationInSeconds(context);
+          },
+          text:
+              '${_symptomStore.duration.hour}h ${_symptomStore.duration.minute}min',
+          type: ButtonType.outline,
+        ),
+      ],
+    );
+  }
+
+  Column _getSymptomInfoForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _getSymptomDescriptionField(),
+        _getSymptomFieldsSpace(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _getSymptomHappenedAtField(),
+            _getSymptomDurationField(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column _getAddSymptomPage() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _getSymptomPageTitle(),
+        _getSymptomTitleSpace(),
+        _getSymptomGenericIdButton(),
+        _getSymptomFieldsSpace(),
+        _getSymptomInfoForm(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,87 +250,7 @@ class _AddSymptomPageState extends State<AddSymptomPage> {
           return SafeArea(
             child: Padding(
               padding: kPaddingPage,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Adicionar Sintoma',
-                    style: kTitleStyle,
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: ButtonWidget(
-                      onPressed: () {
-                        _showSymptomsList(context);
-                      },
-                      text: 'Selecione seu sintoma.',
-                      type: ButtonType.outline,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      TextField(
-                        maxLines: 4,
-                        keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                            borderRadius:
-                                BorderRadius.circular(kBorderRadiusButton),
-                          ),
-                          hintText:
-                              'Descreva aqui observações mais detalhadas sobre seu sintoma',
-                          alignLabelWithHint: true,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('Selecione data'),
-                              ButtonWidget(
-                                onPressed: () {
-                                  _selectHappenedAtDate(context);
-                                },
-                                text:
-                                    formatter.format(_symptomStore.happenedAt),
-                                type: ButtonType.outline,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text('Duração (opcional)'),
-                              ButtonWidget(
-                                onPressed: () {
-                                  _selectDurationInSeconds(context);
-                                },
-                                text:
-                                    '${_symptomStore.duration.hour}h ${_symptomStore.duration.minute}min',
-                                type: ButtonType.outline,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: _getAddSymptomPage(),
             ),
           );
         },
