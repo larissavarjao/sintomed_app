@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sintomed_app/src/models/user_model.dart';
 import 'package:sintomed_app/src/services/shared_pref_service.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
 import 'package:sintomed_app/src/utils/url.dart';
@@ -59,13 +60,12 @@ class APIService {
     return response;
   }
 
-  Future<Response> registerUser(String email, String password, String firstName,
-      String lastName, String pacientName) async {
+  Future<Response> registerUser(User user, String password) async {
     Response response = await _dio.post(Url.usersUrl, data: {
-      'firstName': firstName,
-      'lastName': lastName,
-      'pacientName': pacientName,
-      'email': email,
+      'firstName': user.firstName,
+      'lastName': user.lastName,
+      'pacientName': user.pacientName,
+      'email': user.email,
       'password': password,
     });
     return response;

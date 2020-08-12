@@ -140,8 +140,13 @@ abstract class _AuthStoreBase with Store {
 
   @action
   Future<bool> registerUser() async {
-    final future = _repository.registerUser(this.email, this.password,
-        this.firstName, this.lastName, this.pacientName);
+    User user = User(
+      firstName: this.firstName,
+      lastName: this.lastName,
+      pacientName: this.pacientName,
+      email: this.email,
+    );
+    final future = _repository.registerUser(user, this.password);
     registerUserFuture = ObservableFuture(future);
 
     bool isUserRegistered;

@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:sintomed_app/src/models/user_model.dart';
 import 'package:sintomed_app/src/services/api_service.dart';
 
 class UserRepository {
-  Future<Response> registerUser(String email, String password, String firstName,
-      String lastName, String pacientName) async {
+  Future<Response> registerUser(User user, String password) async {
     try {
-      final Response response = await APIService()
-          .registerUser(email, password, firstName, lastName, pacientName);
+      final Response response = await APIService().registerUser(user, password);
       return response;
     } catch (e) {
       print(e);
