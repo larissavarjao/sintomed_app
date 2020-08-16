@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sintomed_app/src/models/symptom_model.dart';
 import 'package:sintomed_app/src/models/user_model.dart';
 import 'package:sintomed_app/src/services/shared_pref_service.dart';
 import 'package:sintomed_app/src/stores/auth/auth_store.dart';
@@ -57,6 +58,19 @@ class APIService {
       Url.symptomsUrl,
       options: await _getRequestOptions(),
     );
+    return response;
+  }
+
+  Future<Response> createSymptom(Symptom symptom) async {
+    await logoutOnInvalidToken();
+    Response response = await _dio.post(Url.symptomsUrl, data: {
+      'happenedAt': symptom.happenedAt,
+      'durationSeconds': symptom.durationSeconds,
+      'observation': symptom.observation,
+      'userId': symptom.userId,
+      'symptomGenericId': symptom.symptomGenericId,
+      'symptomUserId': symptom.symptomUserId,
+    });
     return response;
   }
 
